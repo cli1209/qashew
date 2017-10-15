@@ -23,7 +23,9 @@
 	    </nav>
   	</div>
   	<div class="container">
-    <%= yield %>
-	</div>
+	    <%= yield %>
+	    <span class="notice"><%= notice %></span>
+	    <span class="alert"><%= alert %></span>
+		</div>
   </body>
 </html>
