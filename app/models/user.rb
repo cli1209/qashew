@@ -15,4 +15,8 @@ class User < ApplicationRecord
     validates_presence_of     :password # recommended
     validates_confirmation_of :password # recommended
     validates_length_of       :password, minimum: 6 # recommended
+
+    def owns_question?(question)
+        id == question.user_id
+    end
 end
