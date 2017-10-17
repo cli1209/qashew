@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Qashew</title>
+    <title>Q+Ashew</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,21 +9,11 @@
   </head>
 
   <body>
-  	<div class="navbar-fixed">
-	    <nav class="purple darken-4">
-	      <div class="nav-wrapper">
-	      	<div class="container">
-		      	<%= link_to "Q+Ashew", root_path, class:"brand-logo"%>
-		        <ul class="right hide-on-med-and-down">
-		          <li><a href="sass.html">Sass</a></li>
-		          <li><a href="badges.html">Components</a></li>
-		        </ul>
-		    </div>
-	      </div>
-	    </nav>
-  	</div>
+  	<%= render '/layouts/nav' %>
   	<div class="container">
-    <%= yield %>
-	</div>
+	    <%= yield %>
+	    <span class="notice"><%= notice %></span>
+	    <span class="alert"><%= alert %></span>
+		</div>
   </body>
 </html>
