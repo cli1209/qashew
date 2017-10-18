@@ -1,5 +1,6 @@
 # controls the back end for all pages inside /pages
 class PagesController < ApplicationController
+
   def index
   end
 

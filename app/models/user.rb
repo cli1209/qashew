@@ -1,8 +1,11 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable
+
+    has_many :questions
+
+    # Include default devise modules. Others available are:
+    # :confirmable, :lockable, :timeoutable and :omniauthable
+    devise :database_authenticatable, :registerable,
+        :recoverable, :rememberable, :trackable
 
     validates_presence_of     :email # optional
     validates_format_of :email, with: /\@princeton\.edu/, message: 'must be your university email address.'
@@ -12,4 +15,8 @@ class User < ApplicationRecord
     validates_presence_of     :password # recommended
     validates_confirmation_of :password # recommended
     validates_length_of       :password, minimum: 6 # recommended
+
+    def owns_question?(question)
+        id == question.user_id
+    end
 end
