@@ -1,27 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<h4>Questions</h4>
+</br>
+<h5><b>Questions</b></h5>
 
 <table class="striped">
-  <thead>
-    <tr>
-      <th>Headline</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @questions.each do |question| %>
       <tr>
-        <td><%= question.headline %></td>
-        <td><%= question.content %></td>
-        <td><%= link_to 'Show', question %></td>
-        <!-- only show the edit and destroy links if current user owns the question -->
-        <% if user_signed_in? and current_user.owns_question?(question) %> 
-          <td><%= link_to 'Edit', edit_question_path(question) %></td>
-          <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
+        <td>
+        	<span class="badge grey-text">
+        		<% if question.created_at > Time.now.beginning_of_day %>
+				    <%="#{time_ago_in_words(question.created_at)} ago"%> 
+				<% else %>
+				    <%= question.created_at.strftime("%b %d, %Y") %> 
+				<% end %>
+        	</span>
+        	<b><%= link_to question.headline, question %> </b>
+	        </br>
+	        <%= question.content.truncate(200) %>
+		    </br>
+	
+		</td>
       </tr>
     <% end %>
   </tbody>
