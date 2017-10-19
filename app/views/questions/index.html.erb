@@ -1,31 +1,87 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
 
-</br>
-<h5><b>Questions</b></h5>
+    <!-- left hand side layout -->
+    <div class="col s12 m8 l9"> <!-- "m8 l9" makes this responsive -->
+        <!-- This content will be:
+          9-columns-wide on large screens,
+          8-columns-wide on medium screens,
+          12-columns-wide on small screens  -->
+        <span id="notice"><%= notice %></span>
 
-<table class="striped">
-  <tbody>
-    <% @questions.each do |question| %>
-      <tr>
-        <td>
-        	<span class="badge grey-text">
-        		<% if question.created_at > Time.now.beginning_of_day %>
-				    <%="#{time_ago_in_words(question.created_at)} ago"%> 
-				<% else %>
-				    <%= question.created_at.strftime("%b %d, %Y") %> 
-				<% end %>
-        	</span>
-        	<b><%= link_to question.headline, question %> </b>
-	        </br>
-	        <%= question.content.truncate(200) %>
-		    </br>
-	
-		</td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <!-- search bar -->
+        <br>
+        <h5><b>Search questions</b></h5>
+        <form>
+            <div class="input-field">
+              <input id="search" type="search" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+        </form>
 
-<br>
+        <!-- display questions -->
+    	<h5><b>Questions</b></h5>
+    	<table class="striped">
+    	  <tbody>
+    	    <% @questions.each do |question| %>
+    	      <tr>
+    	        <td style="position:relative; padding:5px">
+                    <!-- right div: up/down arrows -->
+                    <div style="float:right">
+                        <div><i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i></div>
+                        <!-- current ranking -->
+                        <div class="grey-text text-darken-1 center" style="line-height: 10px;height: 15px;">
+                            128
+                        </div>
+                        <div><i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i></div>
+                    </div>
+                    <!-- left div: question -->
+                    <div>
+                        <!-- display question headline -->
+        	        	<%= link_to question.headline, question %>
+                        <br>
+                        <!-- display question content (first 75 chars) -->
+                        <%= question.content.truncate(75) %>
+                        <!-- display how long ago the question was created-->
+                        <div class="grey-text" style="font-size: 12px;">
+                            <% if question.created_at > Time.now.beginning_of_day %>
+                                <%="#{time_ago_in_words(question.created_at)} ago"%> 
+                            <% else %>
+                                <%= question.created_at.strftime("%b %d, %Y") %> 
+                            <% end %>
+                        </div>
+                    </div>
+    			</td>
+    	      </tr>
+    	    <% end %>
+    	  </tbody>
+    	</table>
+    	<br>
+    	<%= link_to 'New Question', new_question_path, class: "waves-effect waves-light btn"%>
+    </div>
 
-<%= link_to 'New Question', new_question_path, class: "waves-effect waves-light btn"%>
+    <!-- right hand side layout -->
+    <div class="col s12 m4 l3"> <!-- "m4 l3" makes this responsive -->
+    <!--  This content will be:
+      3-columns-wide on large screens,
+      4-columns-wide on medium screens,
+      12-columns-wide on small screens  -->
+
+        <!-- container for user info -->
+        <div class="section">
+            <h5><b><%= current_user.username %></b></h5>
+            <p> <%= current_user.email %> </p>
+        </div>
+        <div class="divider"></div>
+        <!-- container for followed tags -->
+        <div class="section">
+            <p style="font-size: 16px;"><b>Your followed tags</b></p>
+        </div>
+        <div class="divider"></div>
+        <!-- container for trending tags -->
+        <div class="section">
+            <p style="font-size: 16px;"><b>Trending tags</b></p>
+        </div>
+        <div class="divider"></div>
+	</div>
+</div>
