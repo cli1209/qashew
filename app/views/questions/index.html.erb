@@ -11,14 +11,11 @@
         <!-- search bar -->
         <br>
         <h5><b>Search questions</b></h5>
-        <form>
-            <div class="input-field">
-              <input id="search" type="search" required>
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
-            </div>
-        </form>
-
+        <%= form_tag(questions_path, method: :get) do %>
+          <%= text_field_tag :term, params[:term] %>
+          <%= submit_tag 'Search', name: nil %>
+        <% end %>
+        
         <!-- display questions -->
     	<h5><b>Questions</b></h5>
     	<table class="striped">
