@@ -1,6 +1,7 @@
 class User < ApplicationRecord
 
     has_many :questions
+    has_many :answers
 
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -18,5 +19,8 @@ class User < ApplicationRecord
 
     def owns_question?(question)
         id == question.user_id
+    end
+    def owns_answer?(answer)
+        id == answer.user_id
     end
 end

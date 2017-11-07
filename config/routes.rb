@@ -6,7 +6,11 @@ Rails.application.routes.draw do
 	get '/user/:id' => 'pages#profile'
 
   	devise_for :users
-	resources :questions
+
+	resources :questions do
+		resources :answers
+	end
+	
   	# define the root to go to questions if user is signed in, home otherwise
 	authenticated :user do
 	  root :to => "questions#index"
