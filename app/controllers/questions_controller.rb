@@ -62,6 +62,16 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def upvote
+    @question = Question.find(params[:question_id])
+    @question.increment!(:rank)
+  end
+
+  def downvote
+    @question = Question.find(params[:question_id])
+    @question.decrement!(:rank)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_owned_question
