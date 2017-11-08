@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   	devise_for :users
 
   resources :questions do
+	  	resources :answers
 		put "upvote", to: "questions#upvote"
 		put "downvote", to: "questions#downvote"
 		put "undoupvote", to: "questions#undoupvote"
