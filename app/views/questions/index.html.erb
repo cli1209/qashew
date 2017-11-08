@@ -25,20 +25,46 @@
     	        <td style="position:relative; padding:5px">
                     <!-- right div: up/down arrows -->
                     <div style="float:right">
-                        <div><i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i></div>
+                        <div> <!-- up arrow -->
+                            <% if current_user.voted_up_on? question %>
+                                <i class="small material-icons blue-text">keyboard_arrow_up</i> 
+                            <% else %>
+                                <% if current_user.voted_down_on? question %>
+                                    <%= link_to question_undodownvote_path(question), method: :put, remote: true do %>
+                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i> 
+                                    <% end %>           
+                                <% else %>
+                                    <%= link_to question_upvote_path(question), method: :put, remote: true do %>
+                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i>            
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                        </div>
                         <!-- current ranking -->
                         <div class="grey-text text-darken-1 center" style="line-height: 10px;height: 15px;">
-                            128
+                            <%= question.weighted_score %>
                         </div>
-                        <div><i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i></div>
+                        <div> <!-- down arrow -->
+                            <% if current_user.voted_down_on? question %>
+                                <i class="small material-icons blue-text">keyboard_arrow_down</i>    
+                            <% else %>
+                                <% if current_user.voted_up_on? question %>
+                                    <%= link_to question_undoupvote_path(question), method: :put, remote: true do %>
+                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i> 
+                                    <% end %>           
+                                <% else %>
+                                    <%= link_to question_downvote_path(question), method: :put, remote: true do %>
+                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i>            
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                        </div>
                     </div>
                     <!-- left div: question -->
                     <div>
                         <!-- display question headline -->
         	        	<%= link_to question.headline, question %>
                         <br>
-                        <!-- display question content (first 75 chars) -->
-                        <%= question.content.truncate(75) %>
                         <!-- display how long ago the question was created-->
                         <div class="grey-text" style="font-size: 12px;">
                             <% if question.created_at > Time.now.beginning_of_day %>
@@ -47,6 +73,15 @@
                                 <%= question.created_at.strftime("%b %d, %Y") %> 
                             <% end %>
                         </div>
+                        <!-- display question content (first 75 chars) -->
+                        <%= question.content.truncate(75) %>
+                        <!-- delete question if user created it -->
+                        <div> 
+                            <% if current_user.id == question.user_id %>
+                                <%= link_to 'Delete', question, method: :delete, data: {confirm: "Are you sure?"} %>
+                            <% end %>
+                        </div>
+                        
                     </div>
     			</td>
     	      </tr>
