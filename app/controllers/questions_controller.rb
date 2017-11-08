@@ -64,12 +64,26 @@ class QuestionsController < ApplicationController
 
   def upvote
     @question = Question.find(params[:question_id])
-    @question.increment!(:rank)
+    @question.upvote_from current_user
+    redirect_back fallback_location: root_path
   end
 
   def downvote
     @question = Question.find(params[:question_id])
-    @question.decrement!(:rank)
+    @question.downvote_from current_user
+    redirect_back fallback_location: root_path
+  end
+
+  def undoupvote
+    @question = Question.find(params[:question_id])
+    @question.unliked_by current_user
+    redirect_back fallback_location: root_path
+  end
+
+  def undodownvote
+    @question = Question.find(params[:question_id])
+    @question.undisliked_by current_user
+    redirect_back fallback_location: root_path
   end
 
   private

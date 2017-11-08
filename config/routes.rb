@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 	resources :questions do
 		put "upvote", to: "questions#upvote"
 		put "downvote", to: "questions#downvote"
+		put "undoupvote", to: "questions#undoupvote"
+		put "undodownvote", to: "questions#undodownvote"
+
 	end
 
   	# define the root to go to questions if user is signed in, home otherwise

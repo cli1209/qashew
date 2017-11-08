@@ -26,17 +26,37 @@
                     <!-- right div: up/down arrows -->
                     <div style="float:right">
                         <div> <!-- up arrow -->
-                            <%= link_to question_upvote_path(question), method: :put do %>
-                                <i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i>            
+                            <% if current_user.voted_up_on? question %>
+                                <i class="small material-icons blue-text">keyboard_arrow_up</i> 
+                            <% else %>
+                                <% if current_user.voted_down_on? question %>
+                                    <%= link_to question_undodownvote_path(question), method: :put, remote: true do %>
+                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i> 
+                                    <% end %>           
+                                <% else %>
+                                    <%= link_to question_upvote_path(question), method: :put, remote: true do %>
+                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i>            
+                                    <% end %>
+                                <% end %>
                             <% end %>
                         </div>
                         <!-- current ranking -->
                         <div class="grey-text text-darken-1 center" style="line-height: 10px;height: 15px;">
-                            <%= question.rank %>
+                            <%= question.weighted_score %>
                         </div>
                         <div> <!-- down arrow -->
-                            <%= link_to question_downvote_path(question), method: :put do %>
-                                <i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i>            
+                            <% if current_user.voted_down_on? question %>
+                                <i class="small material-icons blue-text">keyboard_arrow_down</i>    
+                            <% else %>
+                                <% if current_user.voted_up_on? question %>
+                                    <%= link_to question_undoupvote_path(question), method: :put, remote: true do %>
+                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i> 
+                                    <% end %>           
+                                <% else %>
+                                    <%= link_to question_downvote_path(question), method: :put, remote: true do %>
+                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i>            
+                                    <% end %>
+                                <% end %>
                             <% end %>
                         </div>
                     </div>

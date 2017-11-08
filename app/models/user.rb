@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-
+    acts_as_voter
     has_many :questions
 
     # Include default devise modules. Others available are:
