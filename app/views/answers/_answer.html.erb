@@ -1,0 +1,13 @@
+<li>
+  <b><%= User.find_by_id(answer.user_id).username if User.find_by_id(answer.user_id)%></b>
+  <br>
+  <%= answer.content %>
+  <!-- display how long ago the answer was created-->
+	<div class="grey-text" style="font-size: 12px;">
+	    <% if answer.created_at > Time.now.beginning_of_day %>
+	        <%="#{time_ago_in_words(answer.created_at)} ago"%> 
+	    <% else %>
+	        <%= answer.created_at.strftime("%b %d, %Y") %> 
+	    <% end %>
+	</div>
+</li>

@@ -17,6 +17,16 @@
 	<p>
 	  <%= @question.content %>
 	</p>
+
+	<%= form_for [@question, Answer.new] do |f| %>
+		<%= f.text_area :content, placeholder: "Add an answer" %><br/>
+		<%= f.submit "Submit Answer" %>
+	<% end %>
+
+<ul>
+  <%= render(partial: 'answers/answer', collection: @question.answers) %>
+</ul>
+
 </div>
 
 <% if user_signed_in? and current_user.owns_question?(@question) %>

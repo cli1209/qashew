@@ -11,6 +11,9 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
+    # to avoid NIL error
+    @answer = Answer.new
+
   end
 
   # GET /questions/new
