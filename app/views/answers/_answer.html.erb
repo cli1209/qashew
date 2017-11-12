@@ -1,13 +1,65 @@
 <li>
-  <b><%= User.find_by_id(answer.user_id).username if User.find_by_id(answer.user_id)%></b>
-  <br>
-  <%= answer.content %>
-  <!-- display how long ago the answer was created-->
-	<div class="grey-text" style="font-size: 12px;">
-	    <% if answer.created_at > Time.now.beginning_of_day %>
-	        <%="#{time_ago_in_words(answer.created_at)} ago"%> 
-	    <% else %>
-	        <%= answer.created_at.strftime("%b %d, %Y") %> 
-	    <% end %>
+	<div style="position:relative;">
+		<!-- right div: up/down arrows -->
+		<div style="float:right">
+		    <div> <!-- up arrow -->
+	            <% if current_user.voted_up_on? answer %>
+                    <i class="small material-icons blue-text">keyboard_arrow_up</i> 
+                <% else %>
+	                <% if current_user.voted_down_on? answer %>
+	                    <%= link_to answer_undodownvote_path(:question_id => answer.question_id, :answer_id => answer.id), method: :put, remote: true do %>
+	                    <i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i> 
+	                <% end %>           
+	                <% else %>
+	                    <%= link_to answer_upvote_path(:question_id => answer.question_id, :answer_id => answer.id), method: :put, remote: true do %>
+		                    <i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i>            
+		                <% end %>
+	                <% end %>
+                <% end %>
+		    </div>
+		    <!-- current ranking -->
+		    <div class="grey-text text-darken-1 center" style="line-height: 10px;height: 15px;">
+		        <%= answer.weighted_score %>
+		    </div>
+		    <div> <!-- down arrow -->
+				<% if current_user.voted_down_on? answer %>
+                    <i class="small material-icons blue-text">keyboard_arrow_down</i>    
+                <% else %>
+                    <% if current_user.voted_up_on? answer %>
+                        <%= link_to answer_undoupvote_path(:question_id => answer.question_id, :answer_id => answer.id), method: :put, remote: true do %>
+	                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i> 
+                        <% end %>           
+                    <% else %>
+                        <%= link_to answer_downvote_path(:question_id => answer.question_id, :answer_id => answer.id), method: :put, remote: true do %>
+                            <i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i>            
+                        <% end %>
+                    <% end %>
+                <% end %>
+		    </div>
+		</div>
+
+		<!-- left div: answer -->
+		<div>
+		    <!-- display username -->
+		 	<b><%= User.find_by_id(answer.user_id).username if User.find_by_id(answer.user_id)%></b>
+		 	<br>	
+		     <!-- display how long ago the answer was created-->
+			<div class="grey-text" style="font-size: 12px;">
+			    <% if answer.created_at > Time.now.beginning_of_day %>
+			        <%="#{time_ago_in_words(answer.created_at)} ago"%> 
+			    <% else %>
+			        <%= answer.created_at.strftime("%b %d, %Y") %> 
+			    <% end %>
+			</div>
+
+		    <!-- display content -->
+		   	<%= answer.content %>
+		    <div> 
+		        <% if current_user.id == answer.user_id %>
+		            <%= link_to 'Delete', question_answer_path(answer.question_id, answer.id), method: :delete, data: {confirm: "Are you sure?"} %>
+		        <% end %>
+		    </div>
+		    <br>
+		</div>
 	</div>
 </li>

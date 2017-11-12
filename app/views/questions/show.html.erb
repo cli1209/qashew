@@ -23,6 +23,7 @@
 		<%= f.submit "Submit Answer" %>
 	<% end %>
 
+<!-- display all the answers -->
 <ul>
   <%= render(partial: 'answers/answer', collection: @question.answers) %>
 </ul>
