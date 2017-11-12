@@ -15,6 +15,40 @@ class AnswersController < ApplicationController
 		end
 	end
 
+	def upvote
+	    @question = Question.find(params[:question_id])
+	    @question.upvote_from current_user
+	    redirect_back fallback_location: root_path
+  	end
+
+    def downvote
+        @question = Question.find(params[:question_id])
+        @question.downvote_from current_user
+        redirect_back fallback_location: root_path
+    end
+
+    def undoupvote
+        @question = Question.find(params[:question_id])
+        @question.unliked_by current_user
+        redirect_back fallback_location: root_path
+    end
+
+    def undodownvote
+        @question = Question.find(params[:question_id])
+        @question.undisliked_by current_user
+        redirect_back fallback_location: root_path
+    end
+
+	def destroy
+		@question = Question.find(params[:question_id])
+		@answer = @question.answers.find(params[:id])
+	    @answer.destroy
+	    respond_to do |format|
+	      format.html { redirect_to questions_path(@question), notice: 'Answer was successfully deleted.' }
+	      format.json { head :no_content }
+	    end
+  	end
+
 	def answer_params
       params.require(:answer).permit(:content)
     end
