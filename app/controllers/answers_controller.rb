@@ -17,25 +17,29 @@ class AnswersController < ApplicationController
 
 	def upvote
 	    @question = Question.find(params[:question_id])
-	    @question.upvote_from current_user
+        @answer = @question.answers.find(params[:answer_id])
+	    @answer.upvote_from current_user
 	    redirect_back fallback_location: root_path
   	end
 
     def downvote
         @question = Question.find(params[:question_id])
-        @question.downvote_from current_user
+        @answer = @question.answers.find(params[:answer_id])
+        @answer.downvote_from current_user
         redirect_back fallback_location: root_path
     end
 
     def undoupvote
         @question = Question.find(params[:question_id])
-        @question.unliked_by current_user
+        @answer = @question.answers.find(params[:answer_id])
+        @answer.unliked_by current_user
         redirect_back fallback_location: root_path
     end
 
     def undodownvote
         @question = Question.find(params[:question_id])
-        @question.undisliked_by current_user
+        @answer = @question.answers.find(params[:answer_id])
+        @answer.undisliked_by current_user
         redirect_back fallback_location: root_path
     end
 
@@ -44,7 +48,7 @@ class AnswersController < ApplicationController
 		@answer = @question.answers.find(params[:id])
 	    @answer.destroy
 	    respond_to do |format|
-	      format.html { redirect_to questions_path(@question), notice: 'Answer was successfully deleted.' }
+	      format.html { redirect_to question_path(@question), notice: 'Answer was successfully deleted.' }
 	      format.json { head :no_content }
 	    end
   	end

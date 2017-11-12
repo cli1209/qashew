@@ -5,6 +5,7 @@ class Answer < ApplicationRecord
   belongs_to :user
   validates :user_id, presence: true
 	validates :content, presence: true
+	default_scope -> {order(:cached_weighted_score => :desc)}
 
 
 end
