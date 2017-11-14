@@ -21,6 +21,11 @@
     <%= form.text_area :content, id: :question_content %>
   </div>
 
+  <div class="field">
+    <%= form.label :tag_list, "Your tags (separated by commas)" %><br/>
+    <%= form.text_area :tag_list, data: {load:@question_tags} %>
+  </div>
+
   <br>
   <div class="actions">
     <%= form.submit "Save Question", class: "waves-effect waves-light btn"%>
