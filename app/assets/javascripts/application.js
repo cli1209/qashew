@@ -15,3 +15,5 @@
 //= require jquery
 //= require materialize-sprockets
 //= require_tree .
+//= require bootstrap-tokenfield
+

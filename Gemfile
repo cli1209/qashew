@@ -16,6 +16,7 @@ gem 'devise'
 gem 'jquery-rails'
 
 gem 'acts-as-taggable-on'
+gem 'bootstrap_tokenfield_rails'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
