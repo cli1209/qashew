@@ -11,10 +11,10 @@ class PagesController < ApplicationController
   	# grab username from user in url as :id
   	if (User.find_by_username(params[:id]))
 	  	@username = params[:id]
-	else 
-		#redirect to 404, but root for now
-		redirect_to root_path, :notice=>"User not found!"
-	end
+  	else 
+  		#redirect to 404, but root for now
+  		redirect_to root_path, :notice=>"User not found!"
+  	end
   end
 
   def explore

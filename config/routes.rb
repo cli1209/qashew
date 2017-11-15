@@ -4,10 +4,11 @@ Rails.application.routes.draw do
   	get '/index' => 'questions#index'
   	get '/explore' => 'pages#explore'
 	get '/user/:id' => 'pages#profile'
+	get '/tag/:tag_id' => 'pages#tag', as: :tag
 
   	devise_for :users
 
-	  resources :questions do
+	resources :questions do
 	  	resources :answers
 		put "upvote", to: "questions#upvote"
 		put "downvote", to: "questions#downvote"

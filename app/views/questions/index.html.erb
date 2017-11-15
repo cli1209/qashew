@@ -75,9 +75,9 @@
                         <br>
                         <!-- display question content (first 75 chars) -->
                         <%= question.content.truncate(115) %>
-                        <p>
+                        <p>            
                           <% question.tag_list.each do |tag| %>
-                                <span class="label label-pill label-info"><%= tag %></span>
+                                <a href="/tag/<%=tag%>" class="label label-pill label-info" style="text-decoration:none"><%= tag %></a>
                           <% end %>
                         </p>    
                         <!-- display how long ago the question was created-->
@@ -114,7 +114,12 @@
         <!-- container for trending tags -->
         <div class="section">
             <p style="font-size: 16px;"><b>Trending tags</b></p>
-        </div>
+        <div id='tag_cloud'>
+          <% tag_cloud Question.tag_counts, %w{s m l} do |tag, css_class| %>
+          <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+          <% end %>
+</div>       
+ </div>
         <div class="divider"></div>
 	</div>
 </div>
