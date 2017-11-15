@@ -17,6 +17,7 @@ gem 'acts_as_votable', '~> 0.11.1'
 gem 'devise'
 # jquery gem
 gem 'jquery-rails'
+gem 'popper_js', '~> 1.12.3'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
