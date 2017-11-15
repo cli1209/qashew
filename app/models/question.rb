@@ -10,7 +10,7 @@ class Question < ApplicationRecord
 
 	def self.search(term)
 	  if term
-	    where("headline ILIKE ? OR content ILIKE ?", "%#{term}%", "%#{term}%").order('id DESC')
+	    where("headline ILIKE ? OR content ILIKE ?", "%#{term}%", "%#{term}%") | Question.tagged_with(term)
 	  else
 	    order(:cached_weighted_score => :desc)
 	  end
