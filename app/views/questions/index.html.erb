@@ -10,7 +10,7 @@
                 <h4><b>Search questions</b></h4>
                 <%= form_tag(questions_path, method: :get) do %>
                     <%= text_field_tag :term, params[:term] %>
-                    <%= submit_tag 'Search', name: nil %>
+                    <%= submit_tag 'Search', name: nil, class:"btn btn-default btn-xs" %>
                 <% end %>
             </div>
             <div class="col-md-2">
@@ -82,13 +82,7 @@
                             <% end %>
                         </div>
                         <!-- display question content (first 75 chars) -->
-                        <%= question.content.truncate(75) %>
-                        <!-- delete question if user created it -->
-                        <div> 
-                            <% if current_user.id == question.user_id %>
-                                <%= link_to 'Delete', question, method: :delete, data: {confirm: "Are you sure?"} %>
-                            <% end %>
-                        </div>
+                        <%= question.content.truncate(115) %>
                     </div>
     			</td>
     	      </tr>
