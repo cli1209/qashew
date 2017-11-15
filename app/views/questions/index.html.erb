@@ -1,6 +1,6 @@
 <div>
     <!-- left hand side layout -->
-    <div class="col-md-9"> 
+    <div class="col-md-9 panel panel-default"> 
         <span id="notice"><%= notice %></span>
 
         <!-- search bar -->
@@ -101,24 +101,30 @@
     <div class="col-md-3"> 
 
         <!-- container for user info -->
-        <div class="section">
-            <h5><b><%= current_user.username %></b></h5>
-            <p> <%= current_user.email %> </p>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h5><b>@<%= current_user.username %></b></h5>
+          </div>
+          <div class="panel-footer">Notifications</div>
         </div>
         <div class="divider"></div>
         <!-- container for followed tags -->
-        <div class="section">
-            <p style="font-size: 16px;"><b>Followed tags</b></p>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p style="font-size: 16px;"><b>Followed tags</b></p>
+            </div>
         </div>
         <div class="divider"></div>
         <!-- container for trending tags -->
-        <div class="section">
-            <p style="font-size: 16px;"><b>Trending tags</b></p>
-        <div id='tag_cloud'>
-          <% tag_cloud Question.tag_counts, %w{s m l} do |tag, css_class| %>
-          <%= link_to tag.name, tag_path(tag.name), class: css_class %>
-          <% end %>
-</div>       
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p style="font-size: 16px;"><b>Trending tags</b></p>
+                <div id='tag_cloud'>
+                  <% tag_cloud Question.tag_counts, %w{s m l} do |tag, css_class| %>
+                      <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+                  <% end %>
+                </div>       
+            </div>
  </div>
         <div class="divider"></div>
 	</div>

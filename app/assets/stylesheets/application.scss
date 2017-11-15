@@ -4,4 +4,7 @@
 @import "bootstrap-sprockets";
 @import "bootswatch/lumen/variables";
 @import "bootstrap";
+body {
+    background-color: #f6f6f6;
+}
 @import "bootswatch/lumen/bootswatch";
