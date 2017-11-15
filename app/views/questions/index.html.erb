@@ -73,6 +73,9 @@
                         <!-- display question headline -->
         	        	<%= link_to question.headline, question %>
                         <br>
+                        <b>Tags:</b>
+                          <%= raw question.tag_list.join(', ') %>
+                        <br>
                         <!-- display how long ago the question was created-->
                         <div class="grey-text" style="font-size: 12px;">
                             <% if question.created_at > Time.now.beginning_of_day %>

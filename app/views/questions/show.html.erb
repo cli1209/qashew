@@ -18,6 +18,11 @@
 	  <%= @question.content %>
 	</p>
 
+	<p>
+	  <b>Tags:</b>
+	  <%= raw @question.tag_list.join(', ') %>
+	</p>
+
 	<%= form_for [@question, Answer.new] do |f| %>
 		<%= f.text_area :content, placeholder: "Add an answer" %><br/>
 		<%= f.submit "Submit Answer" %>

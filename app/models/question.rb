@@ -1,5 +1,6 @@
 class Question < ApplicationRecord
   	acts_as_votable
+  	acts_as_taggable
 	belongs_to :user
 	has_many :answers
 	validates :user_id, presence: true

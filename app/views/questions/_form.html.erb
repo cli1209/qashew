@@ -1,3 +1,5 @@
+<%= javascript_include_tag('form.js') %>
+
 <%= form_with(model: question, local: true) do |form| %>
   <% if question.errors.any? %>
     <div id="error_explanation">
@@ -19,6 +21,11 @@
   <div class="field">
     <%= form.label :content %>
     <%= form.text_area :content, id: :question_content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tag_list, "Your tags (separated by commas)" %><br/>
+    <%= form.text_field :tag_list, :id => "tokenize" %>
   </div>
 
   <br>

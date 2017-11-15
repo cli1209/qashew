@@ -19,6 +19,9 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'popper_js', '~> 1.12.3'
 
+gem 'acts-as-taggable-on'
+gem 'bootstrap_tokenfield_rails'
+
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
