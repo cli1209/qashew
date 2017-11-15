@@ -1,24 +1,27 @@
-<div class="row">
-
+<div>
     <!-- left hand side layout -->
-    <div class="col s12 m8 l9"> <!-- "m8 l9" makes this responsive -->
-        <!-- This content will be:
-          9-columns-wide on large screens,
-          8-columns-wide on medium screens,
-          12-columns-wide on small screens  -->
+    <div class="col-md-9"> 
         <span id="notice"><%= notice %></span>
 
         <!-- search bar -->
         <br>
-        <h5><b>Search questions</b></h5>
-        <%= form_tag(questions_path, method: :get) do %>
-          <%= text_field_tag :term, params[:term] %>
-          <%= submit_tag 'Search', name: nil %>
-        <% end %>
-        
+        <div class="row">
+            <div class="col-md-10">
+                <h4><b>Search questions</b></h4>
+                <%= form_tag(questions_path, method: :get) do %>
+                    <%= text_field_tag :term, params[:term] %>
+                    <%= submit_tag 'Search', name: nil, class:"btn btn-default btn-xs" %>
+                <% end %>
+            </div>
+            <div class="col-md-2">
+                <br>
+                <br>
+                <%= link_to 'New Question', new_question_path, class: "btn btn-info"%>
+            </div>
+        </div>
         <!-- display questions -->
-    	<h5><b>Questions</b></h5>
-    	<table class="striped">
+    	<h4><b>Questions</b></h4>
+    	<table class="table table-striped table-hover">
     	  <tbody>
     	    <% @questions.each do |question| %>
     	      <tr>
@@ -27,34 +30,39 @@
                     <div style="float:right">
                         <div> <!-- up arrow -->
                             <% if current_user.voted_up_on? question %>
-                                <i class="small material-icons blue-text">keyboard_arrow_up</i> 
+                                <button class="btn btn-default btn-xs" disabled="true">
+                                 <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> 
+                                 </button>  
                             <% else %>
                                 <% if current_user.voted_down_on? question %>
-                                    <%= link_to question_undodownvote_path(question), method: :put, remote: true do %>
-                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i> 
+                                    <%= button_to question_undodownvote_path(question), class:"btn btn-info btn-xs", method: :put, remote: true do %>
+                                     <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>   
                                     <% end %>           
                                 <% else %>
-                                    <%= link_to question_upvote_path(question), method: :put, remote: true do %>
-                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i>            
+                                    <%= button_to question_upvote_path(question), class:"btn btn-info btn-xs", method: :put, remote: true do %>
+                                     <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>   
                                     <% end %>
                                 <% end %>
                             <% end %>
                         </div>
+
                         <!-- current ranking -->
-                        <div class="grey-text text-darken-1 center" style="line-height: 10px;height: 15px;">
+                        <div class="text-center" style="line-height: 20px;height: 20px;">
                             <%= question.weighted_score %>
                         </div>
                         <div> <!-- down arrow -->
                             <% if current_user.voted_down_on? question %>
-                                <i class="small material-icons blue-text">keyboard_arrow_down</i>    
+                                <button class="btn btn-default btn-xs" disabled="true">
+                                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                                </button>   
                             <% else %>
                                 <% if current_user.voted_up_on? question %>
-                                    <%= link_to question_undoupvote_path(question), method: :put, remote: true do %>
-                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i> 
+                                    <%= button_to question_undoupvote_path(question), class:"btn btn-info btn-xs", method: :put, remote: true do %>
+                                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>   
                                     <% end %>           
                                 <% else %>
-                                    <%= link_to question_downvote_path(question), method: :put, remote: true do %>
-                                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i>            
+                                    <%= button_to question_downvote_path(question), class:"btn btn-info btn-xs", method: :put, remote: true do %>
+                                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>   
                                     <% end %>
                                 <% end %>
                             <% end %>
@@ -77,14 +85,7 @@
                             <% end %>
                         </div>
                         <!-- display question content (first 75 chars) -->
-                        <%= question.content.truncate(75) %>
-                        <!-- delete question if user created it -->
-                        <div> 
-                            <% if current_user.id == question.user_id %>
-                                <%= link_to 'Delete', question, method: :delete, data: {confirm: "Are you sure?"} %>
-                            <% end %>
-                        </div>
-                        
+                        <%= question.content.truncate(115) %>
                     </div>
     			</td>
     	      </tr>
@@ -92,15 +93,10 @@
     	  </tbody>
     	</table>
     	<br>
-    	<%= link_to 'New Question', new_question_path, class: "waves-effect waves-light btn"%>
     </div>
 
     <!-- right hand side layout -->
-    <div class="col s12 m4 l3"> <!-- "m4 l3" makes this responsive -->
-    <!--  This content will be:
-      3-columns-wide on large screens,
-      4-columns-wide on medium screens,
-      12-columns-wide on small screens  -->
+    <div class="col-md-3"> 
 
         <!-- container for user info -->
         <div class="section">

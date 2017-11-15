@@ -1,2 +1,7 @@
-@import "materialize";
-@import "bootstrap-tokenfield.css";
+
+//  using 'Lumen' bootswatch
+
+@import "bootstrap-sprockets";
+@import "bootswatch/lumen/variables";
+@import "bootstrap";
+@import "bootswatch/lumen/bootswatch";
