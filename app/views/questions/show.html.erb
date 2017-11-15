@@ -6,6 +6,11 @@
 	  <h5><b><%= @question.headline %></b></h5>
 	</p>
 
+	<p>
+	  <% @question.tag_list.each do |tag| %>
+	  		<span class="label label-pill label-info"><%= tag %></span>
+	  <% end %>
+	</p>
 	<span class="grey-text">
 		<% if @question.created_at > Time.now.beginning_of_day %>
 		    <%="#{time_ago_in_words(@question.created_at)} ago"%> 
@@ -17,12 +22,6 @@
 	<p>
 	  <%= @question.content %>
 	</p>
-
-	<p>
-	  <b>Tags:</b>
-	  <%= raw @question.tag_list.join(', ') %>
-	</p>
-
 	<%= form_for [@question, Answer.new] do |f| %>
 		<%= f.text_area :content, placeholder: "Add an answer" %><br/>
 		<%= f.submit "Submit Answer" %>

@@ -35,11 +35,11 @@
                                  </button>  
                             <% else %>
                                 <% if current_user.voted_down_on? question %>
-                                    <%= button_to question_undodownvote_path(question), class:"btn btn-info btn-xs", method: :put, remote: true do %>
+                                    <%= button_to question_undodownvote_path(question), class:"btn btn-default btn-xs", method: :put, remote: true do %>
                                      <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>   
                                     <% end %>           
                                 <% else %>
-                                    <%= button_to question_upvote_path(question), class:"btn btn-info btn-xs", method: :put, remote: true do %>
+                                    <%= button_to question_upvote_path(question), class:"btn btn-default btn-xs", method: :put, remote: true do %>
                                      <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>   
                                     <% end %>
                                 <% end %>
@@ -57,11 +57,11 @@
                                 </button>   
                             <% else %>
                                 <% if current_user.voted_up_on? question %>
-                                    <%= button_to question_undoupvote_path(question), class:"btn btn-info btn-xs", method: :put, remote: true do %>
+                                    <%= button_to question_undoupvote_path(question), class:"btn btn-default btn-xs", method: :put, remote: true do %>
                                         <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>   
                                     <% end %>           
                                 <% else %>
-                                    <%= button_to question_downvote_path(question), class:"btn btn-info btn-xs", method: :put, remote: true do %>
+                                    <%= button_to question_downvote_path(question), class:"btn btn-default btn-xs", method: :put, remote: true do %>
                                         <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>   
                                     <% end %>
                                 <% end %>
@@ -71,11 +71,15 @@
                     <!-- left div: question -->
                     <div>
                         <!-- display question headline -->
-        	        	<%= link_to question.headline, question %>
+        	        	<%= link_to question.headline, question, style:"font-size:16px" %>
                         <br>
-                        <b>Tags:</b>
-                          <%= raw question.tag_list.join(', ') %>
-                        <br>
+                        <!-- display question content (first 75 chars) -->
+                        <%= question.content.truncate(115) %>
+                        <p>
+                          <% question.tag_list.each do |tag| %>
+                                <span class="label label-pill label-info"><%= tag %></span>
+                          <% end %>
+                        </p>    
                         <!-- display how long ago the question was created-->
                         <div class="grey-text" style="font-size: 12px;">
                             <% if question.created_at > Time.now.beginning_of_day %>
@@ -83,9 +87,7 @@
                             <% else %>
                                 <%= question.created_at.strftime("%b %d, %Y") %> 
                             <% end %>
-                        </div>
-                        <!-- display question content (first 75 chars) -->
-                        <%= question.content.truncate(115) %>
+                        </div>                                            
                     </div>
     			</td>
     	      </tr>
