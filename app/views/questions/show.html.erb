@@ -52,7 +52,9 @@
 				<!-- display all the answers -->
 
     		<% @question.answers.each do |answer| %>
-			  <%= render(partial: 'answers/answer', locals: {answer: answer})%>
+    			<div id="answer<%= answer.id %>">
+				  <%= render(partial: 'answers/answer', locals: {answer: answer})%>
+				</div>
 			<% end %>
 
 			</div>
