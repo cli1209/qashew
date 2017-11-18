@@ -13,7 +13,7 @@
                     <%= submit_tag 'Search', name: nil, class:"btn btn-default btn-xs" %>
                 <% end %>
             </div>
-            <div class="col-md-2">
+            <div>
                 <br>
                 <br>
                 <%= link_to 'New Question', new_question_path, class: "btn btn-info"%>
@@ -105,7 +105,9 @@
           <div class="panel-body">
             <h5><b>@<%= current_user.username %></b></h5>
           </div>
-          <div class="panel-footer">Notifications <span class="badge badge-pill badge-danger">0</span></div>
+          <div class="panel-footer">
+            Notifications <span class="badge badge-pill badge-danger">0</span>
+          </div>
         </div>
         <div class="divider"></div>
         <!-- container for followed tags -->

@@ -1,43 +1,47 @@
-<li>
 	<div style="position:relative;">
 		<!-- right div: up/down arrows -->
 		<div style="float:right">
 		    <div> <!-- up arrow -->
-	            <% if current_user.voted_up_on? answer %>
-                    <i class="small material-icons blue-text">keyboard_arrow_up</i> 
-                <% else %>
-	                <% if current_user.voted_down_on? answer %>
-	                    <%= link_to answer_undodownvote_path(:question_id => answer.question_id, :answer_id => answer.id), method: :put, remote: true do %>
-	                    <i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i> 
-	                <% end %>           
-	                <% else %>
-	                    <%= link_to answer_upvote_path(:question_id => answer.question_id, :answer_id => answer.id), method: :put, remote: true do %>
-		                    <i class="small material-icons grey-text text-darken-1">keyboard_arrow_up</i>            
-		                <% end %>
-	                <% end %>
-                <% end %>
-		    </div>
-		    <!-- current ranking -->
-		    <div class="grey-text text-darken-1 center" style="line-height: 10px;height: 15px;">
-		        <%= answer.weighted_score %>
-		    </div>
-		    <div> <!-- down arrow -->
-				<% if current_user.voted_down_on? answer %>
-                    <i class="small material-icons blue-text">keyboard_arrow_down</i>    
-                <% else %>
-                    <% if current_user.voted_up_on? answer %>
-                        <%= link_to answer_undoupvote_path(:question_id => answer.question_id, :answer_id => answer.id), method: :put, remote: true do %>
-	                        <i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i> 
-                        <% end %>           
-                    <% else %>
-                        <%= link_to answer_downvote_path(:question_id => answer.question_id, :answer_id => answer.id), method: :put, remote: true do %>
-                            <i class="small material-icons grey-text text-darken-1">keyboard_arrow_down</i>            
-                        <% end %>
-                    <% end %>
-                <% end %>
-		    </div>
-		</div>
+                            <% if current_user.voted_up_on? answer %>
+                                <button class="btn btn-default btn-xs" disabled="true">
+                                 <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> 
+                                 </button>  
+                            <% else %>
+                                <% if current_user.voted_down_on? answer %>
+                                    <%= button_to answer_undodownvote_path(:question_id => answer.question_id, :answer_id => answer.id), class:"btn btn-default btn-xs", method: :put, remote: true do %>
+                                     <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>   
+                                    <% end %>           
+                                <% else %>
+                                    <%= button_to answer_upvote_path(:question_id => answer.question_id, :answer_id => answer.id), class:"btn btn-default btn-xs", method: :put, remote: true do %>
+                                     <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>   
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                        </div>
 
+                        <!-- current ranking -->
+                        <div class="text-center" style="line-height: 20px;height: 20px;">
+                            <%= answer.weighted_score %>
+                        </div>
+                        <div> <!-- down arrow -->
+                            <% if current_user.voted_down_on? answer %>
+                                <button class="btn btn-default btn-xs" disabled="true">
+                                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                                </button>   
+                            <% else %>
+                                <% if current_user.voted_up_on? answer %>
+                                    <%= button_to answer_undoupvote_path(:question_id => answer.question_id, :answer_id => answer.id), class:"btn btn-default btn-xs", method: :put, remote: true do %>
+                                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>   
+                                    <% end %>           
+                                <% else %>
+                                    <%= button_to answer_downvote_path(:question_id => answer.question_id, :answer_id => answer.id), class:"btn btn-default btn-xs", method: :put, remote: true do %>
+                                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>   
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                 </div>
+                    
 		<!-- left div: answer -->
 		<div>
 		    <!-- display username -->
@@ -62,4 +66,3 @@
 		    <br>
 		</div>
 	</div>
-</li>

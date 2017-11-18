@@ -1,44 +1,61 @@
-<p id="notice"><%= notice %></p>
+<div> 
+	<span id="notice"><%= notice %></span>
+	<!-- display the question -->
+	<div class="panel panel-default">
+		<div class="panel-body">
+      		<span class="glyphicon glyphicon-hand-left" aria-hidden="true"></span>
+			<%= link_to 'Back', questions_path %>
 
-<div>
-	</br>
-	<p>
-	  <h5><b><%= @question.headline %></b></h5>
-	</p>
+		<p>
+		  <h4><b><%= @question.headline %></b></h4>
+		</p>
 
-	<p>
-	  <% @question.tag_list.each do |tag| %>
-	  		<span class="label label-pill label-info"><%= tag %></span>
-	  <% end %>
-	</p>
-	<span class="grey-text">
-		<% if @question.created_at > Time.now.beginning_of_day %>
-		    <%="#{time_ago_in_words(@question.created_at)} ago"%> 
-		<% else %>
-		    <%= @question.created_at.strftime("%b %d, %Y") %> 
-		<% end %>
-	</span>
+		<p>
+		  <% @question.tag_list.each do |tag| %>
+		  		<span class="label label-pill label-info"><%= tag %></span>
+		  <% end %>
+		</p>
 
-	<p>
-	  <%= @question.content %>
-	</p>
-	<%= form_for [@question, Answer.new] do |f| %>
-		<%= f.text_area :content, placeholder: "Add an answer" %><br/>
-		<%= f.submit "Submit Answer" %>
-	<% end %>
+		<p>
+		  <%= @question.content %>
+		</p>
 
-<!-- display all the answers -->
-<ul>
-  <%= render(partial: 'answers/answer', collection: @question.answers) %>
-</ul>
+	</div>
+		<div class="panel-footer">
+			<p class="text-right text-muted">
+				Updated 
+				<span class="grey-text">
+					<% if @question.created_at > Time.now.beginning_of_day %>
+					    <%="#{time_ago_in_words(@question.created_at)} ago"%> 
+					<% else %>
+					    <%= @question.created_at.strftime("%b %d, %Y") %> 
+					<% end %>
+				</span>	
+				by <%=User.find_by_id(@question.user_id).username%>
+			</p>
+        </div>
 
+	</div>
+	<!-- display answer submission panel -->
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div>
+				<%= form_for [@question, Answer.new] do |f| %>
+					<%= f.text_area :content, placeholder: "Add an answer", class:"form-control" %><br/>
+					<%= f.submit "Submit Answer", class:"btn btn-default pull-right" %>
+				<% end %>
+			</div>
+			<div>
+			<br>
+			<br>			
+			<br>
+				<!-- display all the answers -->
+
+    		<% @question.answers.each do |answer| %>
+			  <%= render(partial: 'answers/answer', locals: {answer: answer})%>
+			<% end %>
+
+			</div>
+		</div>
+	</div>
 </div>
-
-<% if user_signed_in? and current_user.owns_question?(@question) %>
-	<%= link_to 'Edit', edit_question_path(@question) %> |
-	<%= link_to 'Delete', @question, method: :delete, data: {confirm: "Are you sure?"} %> |
-<% end %>
-
-<%= link_to 'Back', questions_path %>
-
-
