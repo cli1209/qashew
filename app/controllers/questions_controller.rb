@@ -68,25 +68,33 @@ class QuestionsController < ApplicationController
   def upvote
     @question = Question.find(params[:question_id])
     @question.upvote_from current_user
-    redirect_back fallback_location: root_path
+    respond_to do |format|
+      format.js
+    end
   end
 
   def downvote
     @question = Question.find(params[:question_id])
     @question.downvote_from current_user
-    redirect_back fallback_location: root_path
+    respond_to do |format|
+      format.js
+    end
   end
 
   def undoupvote
     @question = Question.find(params[:question_id])
     @question.unliked_by current_user
-    redirect_back fallback_location: root_path
+    respond_to do |format|
+      format.js
+    end
   end
 
   def undodownvote
     @question = Question.find(params[:question_id])
     @question.undisliked_by current_user
-    redirect_back fallback_location: root_path
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
