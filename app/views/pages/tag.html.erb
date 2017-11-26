@@ -48,70 +48,8 @@
           <tbody>
             <% @questions.each do |question| %>
               <tr>
-                <td style="position:relative; padding:5px">
-                    <!-- right div: up/down arrows -->
-                    <div style="float:right">
-                        <div> <!-- up arrow -->
-                            <% if current_user.voted_up_on? question %>
-                                <button class="btn btn-default btn-xs" disabled="true">
-                                 <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> 
-                                 </button>  
-                            <% else %>
-                                <% if current_user.voted_down_on? question %>
-                                    <%= button_to question_undodownvote_path(question), class:"btn btn-default btn-xs", method: :put, remote: true do %>
-                                     <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>   
-                                    <% end %>           
-                                <% else %>
-                                    <%= button_to question_upvote_path(question), class:"btn btn-default btn-xs", method: :put, remote: true do %>
-                                     <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>   
-                                    <% end %>
-                                <% end %>
-                            <% end %>
-                        </div>
-
-                        <!-- current ranking -->
-                        <div class="text-center" style="line-height: 20px;height: 20px;">
-                            <%= question.weighted_score %>
-                        </div>
-                        <div> <!-- down arrow -->
-                            <% if current_user.voted_down_on? question %>
-                                <button class="btn btn-default btn-xs" disabled="true">
-                                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-                                </button>   
-                            <% else %>
-                                <% if current_user.voted_up_on? question %>
-                                    <%= button_to question_undoupvote_path(question), class:"btn btn-default btn-xs", method: :put, remote: true do %>
-                                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>   
-                                    <% end %>           
-                                <% else %>
-                                    <%= button_to question_downvote_path(question), class:"btn btn-default btn-xs", method: :put, remote: true do %>
-                                        <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>   
-                                    <% end %>
-                                <% end %>
-                            <% end %>
-                        </div>
-                    </div>
-                    <!-- left div: question -->
-                    <div>
-                        <!-- display question headline -->
-                        <%= link_to question.headline, question, style:"font-size:16px" %>
-                        <br>
-                        <!-- display question content (first 75 chars) -->
-                        <%= question.content.truncate(115) %>
-                        <p>            
-                          <% question.tag_list.each do |tag| %>
-                                <a href="/tag/<%=tag%>" class="label label-pill label-info" style="text-decoration:none"><%= tag %></a>
-                          <% end %>
-                        </p>    
-                        <!-- display how long ago the question was created-->
-                        <div class="grey-text" style="font-size: 12px;">
-                            <% if question.created_at > Time.now.beginning_of_day %>
-                                <%="#{time_ago_in_words(question.created_at)} ago"%> 
-                            <% else %>
-                                <%= question.created_at.strftime("%b %d, %Y") %> 
-                            <% end %>
-                        </div>                                            
-                    </div>
+                <td id="question_<%= question.id %>" style="position:relative; padding:5px">
+                    <%= render(partial: 'questions/question', locals: {question: question})%>
                 </td>
               </tr>
             <% end %>
