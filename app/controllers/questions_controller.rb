@@ -9,6 +9,7 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.where(nil) # creates an anonymous scope
     @questions = @questions.term(params[:term]) if params[:term].present?
+    @search_term = params[:term] if params[:term].present?
     @questions = @questions.order(sort_param) if sort_param.present?
   end
 
