@@ -6,13 +6,6 @@ class Question < ApplicationRecord
 	validates :user_id, presence: true
 	validates :headline, presence: true, length: { maximum: 150 }
 	validates :content, presence: true
-	default_scope -> {order(:cached_weighted_score => :desc)}
 
-	def self.search(term)
-	  if term
-	    where("headline ILIKE ? OR content ILIKE ?", "%#{term}%", "%#{term}%") | Question.tagged_with(term)
-	  else
-	    order(:cached_weighted_score => :desc)
-	  end
-	end
+	scope :term, -> (term) { where("headline ILIKE ? OR content ILIKE ?", "%#{term}%", "%#{term}%") | Question.tagged_with(term) }
 end

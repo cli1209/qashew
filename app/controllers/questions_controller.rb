@@ -1,11 +1,15 @@
-
 class QuestionsController < ApplicationController
   before_action :set_owned_question, only: [:edit, :update, :destroy]
+
+  # helper param for the order() call in index method
+  helper_method :sort_param
 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.search(params[:term])
+    @questions = Question.where(nil) # creates an anonymous scope
+    @questions = @questions.term(params[:term]) if params[:term].present?
+    @questions = @questions.order(sort_param) if sort_param.present?
   end
 
   # GET /questions/1
@@ -115,5 +119,10 @@ class QuestionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
       params.require(:question).permit(:headline, :content, :user_id, :tag_list)
+    end
+
+    # sanitize the ordering param
+    def sort_param
+      ["created_at desc", "cached_weighted_score desc"].include?(params[:sort]) ? params[:sort] : "cached_weighted_score desc"
     end
 end

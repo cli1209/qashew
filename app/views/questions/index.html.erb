@@ -29,8 +29,8 @@
                         
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">Most Upvoted</a></li>
-                        <li><a class="dropdown-item" href="#">Newest</a></li>
+                        <li><%= link_to "Most Upvoted", :sort => "cached_weighted_score desc", class:"dropdown-item" %></li>
+                        <li><%= link_to "Newest", :sort => "created_at desc", class:"dropdown-item" %></li>
                       </ul>
             </div>
 
