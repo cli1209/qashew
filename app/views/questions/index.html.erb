@@ -43,13 +43,15 @@
 
     	<table class="table table-striped table-hover">
     	  <tbody>
-    	    <% @questions.each do |question| %>
+    	    <% if @questions.each do |question| %>
     	      <tr>
     	        <td id="question_<%= question.id %>" style="position:relative; padding:5px">
                     <%= render(partial: 'questions/question', locals: {question: question})%>
     			</td>
     	      </tr>
-    	    <% end %>
+    	    <% end.empty? %>
+              <h5>Sorry, there are no questions to display.</h5>
+            <% end %>
     	  </tbody>
     	</table>
     	<br>
