@@ -1,5 +1,8 @@
 # controls the back end for all pages inside /pages
 class PagesController < ApplicationController
+  
+  # for sorting in tag method
+  helper_method :sort_param
 
   def index
   end
@@ -21,8 +24,17 @@ class PagesController < ApplicationController
     # grab tag from url as :tag_id
     @tag = params[:tag_id]
     @questions = Question.tag_search(params[:tag_id])
+    @questions = @questions.term(params[:term]) if params[:term].present?
+    @search_term = params[:term] if params[:term].present?
+    @questions = @questions.sort_by { |m| m[sort_param] }.reverse if sort_param.present?
   end
 
   def explore
   end
+
+  private
+    # sanitize the ordering param
+    def sort_param
+      ["created_at", "cached_weighted_score"].include?(params[:sort]) ? params[:sort] : "cached_weighted_score"
+    end
 end

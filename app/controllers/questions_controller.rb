@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :set_owned_question, only: [:edit, :update, :destroy]
 
-  # helper param for the order() call in index method
+  # helper param for the sort_by() call in index method
   helper_method :sort_param
 
   # GET /questions
