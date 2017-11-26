@@ -127,6 +127,6 @@ class QuestionsController < ApplicationController
 
     # sanitize the ordering param
     def sort_param
-      ["created_at desc", "cached_weighted_score desc"].include?(params[:sort]) ? params[:sort] : "cached_weighted_score desc"
+      ["created_at desc", "cached_weighted_score desc"].include?(params[:sort]) ? params[:sort] : nil
     end
 end
