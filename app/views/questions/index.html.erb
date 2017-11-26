@@ -72,7 +72,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <p style="font-size: 16px;"><b>Followed tags</b></p>
-                You're not following any tags yet. 
+                You're not following any tags yet.
             </div>
         </div>
         <div class="divider"></div>
@@ -81,7 +81,7 @@
             <div class="panel-body">
                 <p style="font-size: 16px;"><b>Trending tags</b></p>
                 <div id='tag_cloud'>
-                  <% tag_cloud Question.tag_counts, %w{s m l} do |tag, css_class| %>
+                  <% tag_cloud Question.tag_counts, %w{h5 h4 h3 h2} do |tag, css_class| %>
                       <%= link_to tag.name, tag_path(tag.name), class: css_class %>
                   <% end %>
                 </div>       

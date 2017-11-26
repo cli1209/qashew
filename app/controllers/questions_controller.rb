@@ -102,6 +102,10 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def tag_cloud
+    @tags = Question.tag_counts_on(:tags)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_owned_question
