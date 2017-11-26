@@ -47,15 +47,12 @@
 <!-- left div: question -->
 <div>
     <!-- display question headline -->
-	<%= link_to question.headline, question, style:"font-size:16px" %>
+	<%= link_to question.headline, question, style:"text-decoration:none; font-weight:bold; font-size:18px; color:#404040;" %>
     <br>
+
     <!-- display question content (first 75 chars) -->
-    <%= question.content.truncate(115) %>
-    <p>            
-      <% question.tag_list.each do |tag| %>
-            <a href="/tag/<%=tag%>" class="label label-pill label-info" style="text-decoration:none"><%= tag %></a>
-      <% end %>
-    </p>    
+    <span style="font-size:16px"><%= question.content.truncate(115) %></span>
+  
     <!-- display how long ago the question was created-->
     <div class="grey-text" style="font-size: 12px;">
         <% if question.created_at > Time.now.beginning_of_day %>
@@ -63,5 +60,10 @@
         <% else %>
             <%= question.created_at.strftime("%b %d, %Y") %> 
         <% end %>
-    </div>                                            
+    </div>        
+        <p>            
+      <% question.tag_list.each do |tag| %>
+            <a href="/tag/<%=tag%>" class="label label-pill label-info" style="text-decoration:none;"><%= tag %></a>
+      <% end %>
+    </p>                                      
 </div>
