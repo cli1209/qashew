@@ -9,15 +9,19 @@
                 <h2> <small><span class="glyphicon glyphicon-th-list"></span></small> <b>Questions</b></h2>
                 <br>
                 <% if @search_term %>
-                    Showing results for "<%= @search_term %>"
-                    <%= link_to 'Clear', questions_path %>
+                    <div>
+                        Showing search results for "<%= @search_term %>"
+                        <%= link_to 'Clear', tag_path(@tag) %>
+                    </div>
                 <% end %>
                 <% if @tag %>
-                    Filtering by tag: 
-                    <span class="label label-info">
-                        <%= @tag %>
-                        <small><a href="/" class="glyphicon glyphicon-remove-sign"></a></small>
-                    </span>
+                    <div>
+                        Filtering by tag: 
+                        <span class="label label-info">
+                            <%= @tag %>
+                            <small><a href="/" class="glyphicon glyphicon-remove-sign"></a></small>
+                        </span>
+                    </div>
                 <% end %>
             </div>
             <br>
