@@ -9,7 +9,8 @@ class QuestionsController < ApplicationController
   def index
     @questions = Question.where(nil) # creates an anonymous scope
     @questions = @questions.term(params[:term]) if params[:term].present?
-    @questions = @questions.order(sort_param) if sort_param.present?
+    @search_term = params[:term] if params[:term].present?
+    @questions = @questions.sort_by { |m| m[sort_param] }.reverse if sort_param.present?
   end
 
   # GET /questions/1
@@ -127,6 +128,6 @@ class QuestionsController < ApplicationController
 
     # sanitize the ordering param
     def sort_param
-      ["created_at desc", "cached_weighted_score desc"].include?(params[:sort]) ? params[:sort] : nil
+      ["created_at", "cached_weighted_score"].include?(params[:sort]) ? params[:sort] : "cached_weighted_score"
     end
 end
