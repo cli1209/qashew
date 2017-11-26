@@ -6,10 +6,10 @@
         <!-- display questions -->
         <div class="row">
         	<div class="col-md-9">
-                <h2> <small><span class="glyphicon glyphicon-th-list"></span></small> <b>Questions</b></h2>
+                <h2> <small><a href="/" style="text-decoration:none;color:darkgrey"><span class="glyphicon glyphicon-th-list"></span></a></small> <b>Questions</b></h2>
                 <br>
                 <% if @search_term %>
-                    Showing results for "<%= @search_term %>"
+                    Showing search results for "<%= @search_term %>"
                     <%= link_to 'Clear', questions_path %>
                 <% end %>
             </div>
@@ -42,7 +42,7 @@
     			</td>
     	      </tr>
     	    <% end.empty? %>
-              <h5>Sorry, there are no questions to display.</h5>
+              <h5>Sorry, there are no questions here.</h5>
             <% end %>
     	  </tbody>
     	</table>
