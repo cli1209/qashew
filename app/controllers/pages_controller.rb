@@ -20,7 +20,7 @@ class PagesController < ApplicationController
   def tag
     # grab tag from url as :tag_id
     @tag = params[:tag_id]
-    @questions = Question.search(params[:tag_id])
+    @questions = Question.tag_search(params[:tag_id])
   end
 
   def explore
