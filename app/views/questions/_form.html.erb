@@ -12,24 +12,22 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
+  <div class="form-group">
     <%= form.label :headline %>
-    <%= form.text_field :headline, id: :question_headline %>
+    <%= form.text_field :headline, id: :question_headline, class:"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :content %>
-    <%= form.text_area :content, id: :question_content %>
+    <%= form.text_area :content, id: :question_content, class:"form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :tag_list, "Your tags (separated by commas)" %><br/>
-    <%= form.text_field :tag_list, :id => "tokenize" %>
+    <%= form.text_field :tag_list, :id => "tokenize", class:"form-control" %>
   </div>
 
-  <br>
   <div class="actions">
-    <%= form.submit "Save Question", class: "waves-effect waves-light btn"%>
+    <%= form.submit "Submit Question", class:"btn btn-success"%>
   </div>
 <% end %>

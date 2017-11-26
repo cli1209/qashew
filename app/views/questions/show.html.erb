@@ -1,4 +1,7 @@
 <div> 
+	<!-- left hand side layout -->
+    <div class="col-md-9"> 
+       
 	<span id="notice"><%= notice %></span>
 	<!-- display the question -->
 	<div class="panel panel-default">
@@ -42,7 +45,7 @@
 			<div>
 				<%= form_for [@question, Answer.new] do |f| %>
 					<%= f.text_area :content, placeholder: "Add an answer", class:"form-control" %><br/>
-					<%= f.submit "Submit Answer", class:"btn btn-default pull-right" %>
+					<%= f.submit "Submit Answer", class:"btn btn-default" %>
 				<% end %>
 			</div>
 			<div>
@@ -59,5 +62,42 @@
 
 			</div>
 		</div>
+	</div>
+    </div>
+
+    <!-- right hand side layout -->
+    <div class="col-md-3"> 
+
+        <!-- container for user info -->
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h5><b>@<%= current_user.username %></b></h5>
+          </div>
+          <div class="panel-footer">
+            Notifications <span class="badge badge-pill badge-danger">0</span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <!-- container for followed tags -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p style="font-size: 16px;"><b>Followed tags</b></p>
+                                You're not following any tags yet. 
+
+            </div>
+        </div>
+        <div class="divider"></div>
+        <!-- container for trending tags -->
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p style="font-size: 16px;"><b>Trending tags</b></p>
+                <div id='tag_cloud'>
+                  <% tag_cloud Question.tag_counts, %w{s m l} do |tag, css_class| %>
+                      <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+                  <% end %>
+                </div>       
+            </div>
+		</div>
+        <div class="divider"></div>
 	</div>
 </div>

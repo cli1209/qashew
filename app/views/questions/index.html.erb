@@ -6,21 +6,41 @@
         <!-- search bar -->
         <br>
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h4><b>Search questions</b></h4>
-                <%= form_tag(questions_path, method: :get) do %>
-                    <%= text_field_tag :term, params[:term] %>
-                    <%= submit_tag 'Search', name: nil, class:"btn btn-default btn-xs" %>
-                <% end %>
-            </div>
-            <div>
-                <br>
-                <br>
-                <%= link_to 'New Question', new_question_path, class: "btn btn-info"%>
+                <form class="form-inline">
+                    <%= form_tag(questions_path, method: :get) do %>
+                        <%= text_field_tag :term, params[:term], class:"form-control", placeholder: "Search by keyword, tag..." %>
+                        <%= submit_tag 'Search', name: nil, class:"btn btn-default" %>
+                    <% end %>
+                </form>
             </div>
         </div>
         <!-- display questions -->
-    	<h4><b>Questions</b></h4>
+        <div class="row">
+        	<div class="col-md-9">
+                <h3><b>Questions</b></h3>
+            </div>
+            <br>
+            <div class="btn-group dropdown">
+                      <button class="btn btn-default" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort by
+                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                        
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="#">Most Upvoted</a></li>
+                        <li><a class="dropdown-item" href="#">Newest</a></li>
+                      </ul>
+            </div>
+
+            <div class="btn-group">
+                  <%= link_to 'New Question', new_question_path, class: "btn btn-info"%>
+            </div>
+        </div>
+                    <br>
+
+
     	<table class="table table-striped table-hover">
     	  <tbody>
     	    <% @questions.each do |question| %>
@@ -52,6 +72,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <p style="font-size: 16px;"><b>Followed tags</b></p>
+                You're not following any tags yet. 
             </div>
         </div>
         <div class="divider"></div>
