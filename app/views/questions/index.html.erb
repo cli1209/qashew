@@ -2,24 +2,12 @@
     <!-- left hand side layout -->
     <div class="col-md-9 panel panel-default"> 
         <span id="notice"><%= notice %></span>
-
-        <!-- search bar -->
         <br>
-        <div class="row">
-            <div class="col-md-8">
-                <h4><b>Search questions</b></h4>
-                <form class="form-inline">
-                    <%= form_tag(questions_path, method: :get) do %>
-                        <%= text_field_tag :term, params[:term], class:"form-control", placeholder: "Search by keyword, tag..." %>
-                        <%= submit_tag 'Search', name: nil, class:"btn btn-default" %>
-                    <% end %>
-                </form>
-            </div>
-        </div>
         <!-- display questions -->
         <div class="row">
         	<div class="col-md-9">
-                <h3><b>Questions</b></h3>
+                <h2> <small><span class="glyphicon glyphicon-th-list"></span></small> <b>Questions</b></h2>
+                <br>
                 <% if @search_term %>
                     Showing results for "<%= @search_term %>"
                     <%= link_to 'Clear', questions_path %>
