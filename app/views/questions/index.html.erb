@@ -5,7 +5,7 @@
         <br>
         <!-- display questions -->
         <div class="row">
-        	<div class="col-md-9">
+        	<div class="col-md-4">
                 <h2> <small><a href="/" style="text-decoration:none;color:darkgrey"><span class="glyphicon glyphicon-th-list"></span></a></small> <b>Questions</b></h2>
                 <br>
                 <% if @search_term %>
@@ -14,20 +14,24 @@
                 <% end %>
             </div>
             <br>
-            <div class="btn-group dropdown">
-                      <button class="btn btn-default" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort by
-                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-                        
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><%= link_to "Most Upvoted", :term => @search_term, :sort => "cached_weighted_score", class:"dropdown-item" %></li>
-                        <li><%= link_to "Newest", :term => @search_term, :sort => "created_at", class:"dropdown-item" %></li>
-                      </ul>
-            </div>
+            <div class="col-md-8">
+                <div class="btn-group pull-right">
+                <div class="btn-group dropdown">
+                          <button class="btn btn-default" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sort by
+                            <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                            
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><%= link_to "Most Upvoted", :term => @search_term, :sort => "cached_weighted_score", class:"dropdown-item" %></li>
+                            <li><%= link_to "Newest", :term => @search_term, :sort => "created_at", class:"dropdown-item" %></li>
+                          </ul>
+                </div>
 
-            <div class="btn-group">
-                  <%= link_to 'New Question', new_question_path, class: "btn btn-info"%>
+                <div class="btn-group">
+                      <%= link_to 'New Question', new_question_path, class: "btn btn-info"%>
+                </div>
+            </div>
             </div>
         </div>
                     <br>
