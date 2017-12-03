@@ -1,83 +1,8 @@
 <div> 
 	<!-- left hand side layout -->
     <div class="col-md-8"> 
-		<span id="notice"><%= notice %></span>
-		<!-- display the question -->
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<!-- right div: up/down arrows -->
-				<div style="float:right">
-					<br>
-				    <div> <!-- up arrow -->
-				        <% if current_user.voted_up_on? @question %>
-				            <button class="btn btn-default btn-sm" disabled="true">
-				             <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> 
-				             </button>  
-				        <% else %>
-				            <% if current_user.voted_down_on? @question %>
-				                <%= button_to question_undodownvote_path(@question), class:"btn btn-default btn-sm", method: :put, remote: true do %>
-				                 <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>   
-				                <% end %>           
-				            <% else %>
-				                <%= button_to question_upvote_path(@question), class:"btn btn-default btn-sm", method: :put, remote: true do %>
-				                 <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>   
-				                <% end %>
-				            <% end %>
-				        <% end %>
-					</div>
-
-				    <!-- current ranking -->
-				    <div class="text-center" style="font-size:16px;line-height: 22px;height: 22px;">
-				        <%= @question.weighted_score %>
-				    </div>
-
-				    <div> <!-- down arrow -->
-				        <% if current_user.voted_down_on? @question %>
-				            <button class="btn btn-default btn-sm" disabled="true">
-				                <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-				            </button>   
-				        <% else %>
-				            <% if current_user.voted_up_on? @question %>
-				                <%= button_to question_undoupvote_path(@question), class:"btn btn-default btn-sm", method: :put, remote: true do %>
-				                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>   
-				                <% end %>           
-				            <% else %>
-				                <%= button_to question_downvote_path(@question), class:"btn btn-default btn-sm", method: :put, remote: true do %>
-				                    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>   
-				                <% end %>
-				            <% end %>
-				        <% end %>
-				    </div>
-				</div>
-				<div>
-		      		<span class="glyphicon glyphicon-hand-left" aria-hidden="true"></span>
-					<%= link_to 'Back', questions_path %>
-					<p>
-					  <span style="font-size:20px"><b><%= @question.headline %></b></span>
-					</p>
-					<p>
-					  <% @question.tag_list.each do |tag| %>
-					  		<span class="label label-pill label-info"><%= tag %></span>
-					  <% end %>
-					</p>
-					<p>
-					  <span style="font-size:16px"><%= @question.content %></span>
-					</p>
-				</div>
-			</div>
-			<div class="panel-footer">
-				<p class="text-right text-muted">
-					Updated 
-					<span class="grey-text">
-						<% if @question.created_at > Time.now.beginning_of_day %>
-						    <%="#{time_ago_in_words(@question.created_at)} ago"%> 
-						<% else %>
-						    <%= @question.created_at.strftime("%b %d, %Y") %> 
-						<% end %>
-					</span>	
-					by <%=User.find_by_id(@question.user_id).username%>
-				</p>
-	        </div>
+    	<div id="question_shown" class="panel panel-default">
+			<%= render(partial: 'questions/showquestion', locals: {question: @question})%>
 		</div>
 		<!-- display answer submission panel -->
 		<div class="panel panel-default">
@@ -109,15 +34,16 @@
     <div class="col-md-4"> 
     	<!-- container for user info -->
         <div class="panel panel-default">
-          <div class="panel-body">
-            <h5><b>@<%= current_user.username %></b></h5>
-          </div>
-          <div class="panel-footer">
-            Notifications <span class="badge badge-pill badge-danger">0</span>
-          </div>
+            <br>
+            <div class="panel-body">
+                <h4>Welcome, <b><%= current_user.username %></b></h4>
+            </div>
+            <div class="panel-footer">
+                My Notifications 
+                <span class="badge badge-pill pull-right" style="background-color:#999595;">0</span>   
+            </div>
         </div>
-        <div class="divider"></div>
-        <!-- container for followed tags -->
+        <!-- container for search and trending tags -->
         <div class="panel panel-default">
             <div class="panel-body">
                 <div>
@@ -128,15 +54,15 @@
                         <% end %>
                     <% end %>
                 </div>
-                <br><br><br>
-                <div>
-                    <p style="font-size: 16px;"><b>Trending tags</b></p>
+                <br><br>   
+            </div>
+            <div class="panel-footer">
+                <h4><b>Trending tags</b></h4>
                     <div id='tag_cloud'>
                       <% tag_cloud Question.tag_counts, %w{h5 h4 h3 h2} do |tag, css_class| %>
                           <%= link_to tag.name, tag_path(tag.name), class: css_class %>
                       <% end %>
                     </div>
-                </div>       
             </div>
         </div>
 	</div>
