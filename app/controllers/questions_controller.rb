@@ -103,6 +103,25 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def star
+    @question = Question.find(params[:question_id])
+    current_user.starred << params[:question_id]
+    current_user.save(validate: false)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def unstar
+    @question = Question.find(params[:question_id])
+    current_user.starred.delete_if {|x| x==@question.id}
+    current_user.save(validate: false)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
   def tag_cloud
     @tags = Question.tag_counts_on(:tags)
   end

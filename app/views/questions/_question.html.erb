@@ -48,6 +48,14 @@
 <div>
     <!-- display question headline -->
 	<%= link_to question.headline, question, style:"text-decoration:none; font-weight:bold; font-size:18px; color:#404040;" %>
+    <!-- display star -->
+    <% if current_user.starred.include? (question.id) %>
+        <!-- if question already starred, then show filled star. Click to unstar -->
+        <%= link_to question_unstar_path(question), method: :put, remote: true do %><span class="glyphicon glyphicon-star" style="font-size:18px;color:#f4df42;"></span><% end %> 
+    <% else %>
+        <!-- if question not starred, then show empty star. Click to star -->
+        <%= link_to question_star_path(question), method: :put, remote: true do %><span class="glyphicon glyphicon-star-empty" style="font-size:18px;color:#bfbdbc;"></span><% end %> 
+    <% end %> 
     <br>
 
     <!-- display question content (first 75 chars) -->

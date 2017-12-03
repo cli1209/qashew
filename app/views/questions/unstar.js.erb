@@ -1,0 +1,1 @@
+$("#question_<%= @question.id %>").html("<%= escape_javascript(render partial: "questions/question", locals: {question: @question}) %>");
