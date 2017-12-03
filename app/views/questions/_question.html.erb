@@ -63,12 +63,12 @@
     <!-- display how long ago the question was created-->
     <div class="grey-text" style="font-size: 12px;">
         <% if question.created_at > Time.now.beginning_of_day %>
-            <%="#{time_ago_in_words(question.created_at)} ago"%> 
+            asked <%="#{time_ago_in_words(question.created_at)} ago"%> 
         <% else %>
-            <%= question.created_at.strftime("%b %d, %Y") %> 
+            asked on <%= question.created_at.strftime("%b %d, %Y") %> by <%= User.find(question.user_id).username %>
         <% end %>
     </div>        
-        <p>            
+    <p>            
       <% question.tag_list.each do |tag| %>
             <a href="/tag/<%=tag%>" class="label label-pill label-info" style="text-decoration:none;"><%= tag %></a>
       <% end %>

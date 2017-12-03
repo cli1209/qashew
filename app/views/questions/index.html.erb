@@ -14,13 +14,15 @@
                 <div class="btn-group pull-right">
                     <div class="btn-group dropdown">
                               <button class="btn btn-default" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Sort by
+                                View    
                                 <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
                                 
                               </button>
                               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><%= link_to "Most Upvoted", :term => @search_term, :sort => "cached_weighted_score", class:"dropdown-item" %></li>
-                                <li><%= link_to "Newest", :term => @search_term, :sort => "created_at", class:"dropdown-item" %></li>
+                                <li><%= link_to "All", :term => @search_term, :sort => "cached_weighted_score", class:"dropdown-item" %></li>
+                                <li><%= link_to "Most Upvotes", :term => @search_term, :sort => "cached_weighted_score", class:"dropdown-item" %></li>
+                                <li><%= link_to "Most Recent", :term => @search_term, :sort => "created_at", class:"dropdown-item" %></li>
+                                <li><%= link_to "Starred", :term => @search_term, :sort => "cached_weighted_score", :starred=>true, class:"dropdown-item" %></li>
                               </ul>
                     </div>
                     <div class="btn-group">

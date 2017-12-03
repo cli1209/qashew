@@ -10,6 +10,7 @@ class QuestionsController < ApplicationController
     @questions = Question.where(nil) # creates an anonymous scope
     @questions = @questions.term(params[:term]) if params[:term].present?
     @search_term = params[:term] if params[:term].present?
+    @questions = Question.find(current_user.starred) if params[:starred].present?
     @questions = @questions.sort_by { |m| m[sort_param] }.reverse if sort_param.present?
   end
 
