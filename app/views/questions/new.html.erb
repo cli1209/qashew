@@ -1,18 +1,18 @@
 <div> 
 	<!-- left hand side layout -->
-	<div class="col-md-9 panel panel-default"> 
+	<div class="col-md-8 panel panel-default"> 
 	    <br>
 		<span class="glyphicon glyphicon-hand-left" aria-hidden="true"></span>
 		      <%= link_to 'Back', questions_path %>
 
-		<h4>New Question</h4>
+		<h3><b>New Question</b></h3>
 
 		<%= render 'form', question: @question %>
 		<br>
     </div>
 
     <!-- right hand side layout -->
-    <div class="col-md-3"> 
+    <div class="col-md-4"> 
 
         <!-- container for user info -->
         <div class="panel panel-default">
