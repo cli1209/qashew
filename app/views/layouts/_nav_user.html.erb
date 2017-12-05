@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to "Q+Ashew", root_path, class:"navbar-brand"%>
+      <%= link_to "Q+Ashew", root_path, class:"navbar-brand", style:"font-size:23px;"%>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -21,9 +21,9 @@
         <% end %>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/"> Home </a></li>
+        <li><a href="/" style="font-size:16px;" > Home </a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.username %>  <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="font-size:16px;"><%= current_user.username %>  <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/user/<%=current_user.username%>"> My Feed </a></li>
             <li><%= link_to('Edit Profile', edit_user_registration_path) %></li>
