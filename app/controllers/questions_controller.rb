@@ -126,6 +126,14 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def resolved
+    @question = Question.find(params[:question_id])
+    @question.resolved = true
+    @question.save
+    respond_to do |format|
+      format.js
+    end
+  end
 
   def tag_cloud
     @tags = Question.tag_counts_on(:tags)

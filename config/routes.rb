@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 		put "undodownvote", to: "questions#undodownvote"
 		put "star", to: "questions#star"
 		put "unstar", to: "questions#unstar"
+		put "resolved", to: "questions#resolved"
 	end
 
 	resources :answers do

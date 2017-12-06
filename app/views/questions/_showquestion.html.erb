@@ -2,7 +2,7 @@
 	<div class="panel-body">
 		<!-- right div: up/down arrows -->
 		<div style="float:right">
-			<br>
+			<br><br>
 		    <div> <!-- up arrow -->
 		        <% if current_user.voted_up_on? @question %>
 		            <button class="btn btn-default btn-sm" disabled="true">
@@ -46,18 +46,26 @@
 		</div>
 		<!-- left div: question information -->
 		<div>
-      		<span class="glyphicon glyphicon-hand-left" aria-hidden="true"></span>
-			<%= link_to 'Back', questions_path %>
-			<p>
-			  <span style="font-size:20px"><b><%= @question.headline %></b></span>
-			  <!-- display star -->
+      		<div><span style="font-size:16px" class="glyphicon glyphicon-hand-left" aria-hidden="true"></span>
+			 <%= link_to 'Back', questions_path, style:"font-size:16px" %> </div>
+			 <br>
+			<div class="pull-right" style="padding-right:10px;">
+				<!-- display star -->
 			    <% if current_user.starred.include? (question.id) %>
 			        <!-- if question already starred, then show filled star. Click to unstar -->
-			        <%= link_to question_unstar_path(question), method: :put, remote: true do %><span class="glyphicon glyphicon-star" style="font-size:20px;color:#f4df42;"></span><% end %> 
+			        <%= link_to question_unstar_path(question), method: :put, remote: true do %><span class="glyphicon glyphicon-star" style="font-size:24px;color:#f4df42;"></span><% end %> 
 			    <% else %>
 			        <!-- if question not starred, then show empty star. Click to star -->
-			        <%= link_to question_star_path(question), method: :put, remote: true do %><span class="glyphicon glyphicon-star-empty" style="font-size:20px;color:#bfbdbc;"></span><% end %> 
+			        <%= link_to question_star_path(question), method: :put, remote: true do %><span class="glyphicon glyphicon-star-empty" style="font-size:24px;color:#bfbdbc;"></span><% end %> 
 			    <% end %> 
+		    </div>
+
+			<p>
+			  <span style="font-size:20px"><b><%= @question.headline %></b></span>
+			    <!-- if question is resolved, display green check mark -->
+    			<% if @question.resolved %>
+				    <span class="glyphicon glyphicon-ok" style="color:#29b265; font-size:20px" aria-hidden="true"></span> 
+				<% end %>
 			</p>
 			<p>
 			  <% @question.tag_list.each do |tag| %>
@@ -70,7 +78,14 @@
 		</div>
 	</div>
 	<div class="panel-footer">
-		<p class="text-right text-muted">
+		<% if user_signed_in? and current_user.owns_question?(@question) %>
+			<% if !@question.resolved %>
+				<%= link_to 'Mark as Resolved', question_resolved_path(@question), method: :put, remote: true %> |
+			<% end %>
+			<%= link_to 'Edit', edit_question_path(@question) %> |
+			<%= link_to 'Delete', question, method: :delete, data: { confirm: 'Are you sure?' } %>
+		<% end %>
+		<span class="pull-right text-muted">
 			Updated 
 			<span class="grey-text">
 				<% if @question.created_at > Time.now.beginning_of_day %>
@@ -85,5 +100,5 @@
 			<% else %>
 				<%=User.find_by_id(@question.user_id).username%>
 			<% end %>
-		</p>
+		</span>
     </div>

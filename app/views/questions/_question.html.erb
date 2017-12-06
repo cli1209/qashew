@@ -45,16 +45,22 @@
 </div>
 <!-- left div: question -->
 <div>
+    <div class="pull-right" style="padding-right:10px;">
+        <!-- display star -->
+        <% if current_user.starred.include? (question.id) %>
+            <!-- if question already starred, then show filled star. Click to unstar -->
+            <%= link_to question_unstar_path(question), method: :put, remote: true do %><span class="glyphicon glyphicon-star" style="font-size:20px;color:#f4df42;"></span><% end %> 
+        <% else %>
+            <!-- if question not starred, then show empty star. Click to star -->
+            <%= link_to question_star_path(question), method: :put, remote: true do %><span class="glyphicon glyphicon-star-empty" style="font-size:20px;color:#bfbdbc;"></span><% end %> 
+        <% end %> 
+    </div>
     <!-- display question headline -->
-	<%= link_to question.headline, question, style:"text-decoration:none; font-weight:bold; font-size:17px; color:#404040;" %>
-    <!-- display star -->
-    <% if current_user.starred.include? (question.id) %>
-        <!-- if question already starred, then show filled star. Click to unstar -->
-        <%= link_to question_unstar_path(question), method: :put, remote: true do %><span class="glyphicon glyphicon-star" style="font-size:17px;color:#f4df42;"></span><% end %> 
-    <% else %>
-        <!-- if question not starred, then show empty star. Click to star -->
-        <%= link_to question_star_path(question), method: :put, remote: true do %><span class="glyphicon glyphicon-star-empty" style="font-size:17px;color:#bfbdbc;"></span><% end %> 
-    <% end %> 
+	<%= link_to question.headline, question, style:"text-decoration:none; font-weight:bold; font-size:16px; color:#404040;" %>
+       <!-- if question is resolved, display green check mark -->
+    <% if question.resolved %>
+        <span class="glyphicon glyphicon-ok" style="color:#29b265; font-size:17px" aria-hidden="true"></span> 
+    <% end %>
     <br>
 
     <!-- display question content (first 75 chars) -->
