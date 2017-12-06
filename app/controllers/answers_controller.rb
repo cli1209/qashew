@@ -6,8 +6,10 @@ class AnswersController < ApplicationController
 
 	def create
 		@question = Question.find(params[:question_id])
-		@answer = @question.answers.create(params[:answer].permit(:content))
+		@answer = @question.answers.create(answer_params)
 		@answer.user = current_user
+		@answer.qualifications = params[:answer][:qualifications]
+		@answer.anon = params[:anon]
 		if @answer.save
 			redirect_to question_path(@question)
 		else
@@ -62,7 +64,7 @@ class AnswersController < ApplicationController
   	end
 
 	def answer_params
-      params.require(:answer).permit(:content)
+      params.require(:answer).permit(:content, :qualifications, :anon)
     end
 
 end

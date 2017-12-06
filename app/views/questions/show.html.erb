@@ -9,8 +9,10 @@
 			<div class="panel-body">
 				<div>
 					<%= form_for [@question, Answer.new] do |f| %>
-                        <%= f.text_field :content, placeholder: "Add an answer", class:"form-control" %><br/>
-						<%= f.text_area :content, placeholder: "Add an answer", class:"form-control" %><br/>
+                        <%= f.text_field :qualifications, placeholder: "Why are you qualified to answer? (Optional) ('Whitman PAA; Junior in COS')", class:"form-control" %><br/>
+						<%= f.text_area :content, placeholder: "Your answer", class:"form-control" %><br/>
+                        <%= check_box_tag(:anon) %>
+                        <%= label_tag(:anon, "Submit anonymously") %>
 						<%= f.submit "Submit Answer", class:"btn btn-default pull-right" %>
 					<% end %>
 				</div>
