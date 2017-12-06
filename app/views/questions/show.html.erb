@@ -1,103 +1,69 @@
 <div> 
 	<!-- left hand side layout -->
-    <div class="col-md-9"> 
-       
-	<span id="notice"><%= notice %></span>
-	<!-- display the question -->
-	<div class="panel panel-default">
-		<div class="panel-body">
-      		<span class="glyphicon glyphicon-hand-left" aria-hidden="true"></span>
-			<%= link_to 'Back', questions_path %>
-
-		<p>
-		  <h4><b><%= @question.headline %></b></h4>
-		</p>
-
-		<p>
-		  <% @question.tag_list.each do |tag| %>
-		  		<span class="label label-pill label-info"><%= tag %></span>
-		  <% end %>
-		</p>
-
-		<p>
-		  <%= @question.content %>
-		</p>
-
-	</div>
-		<div class="panel-footer">
-			<p class="text-right text-muted">
-				Updated 
-				<span class="grey-text">
-					<% if @question.created_at > Time.now.beginning_of_day %>
-					    <%="#{time_ago_in_words(@question.created_at)} ago"%> 
-					<% else %>
-					    <%= @question.created_at.strftime("%b %d, %Y") %> 
+    <div class="col-md-8"> 
+    	<div id="question_shown" class="panel panel-default">
+			<%= render(partial: 'questions/showquestion', locals: {question: @question})%>
+		</div>
+		<!-- display answer submission panel -->
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div>
+					<%= form_for [@question, Answer.new] do |f| %>
+						<%= f.text_area :content, placeholder: "Add an answer", class:"form-control" %><br/>
+						<%= f.submit "Submit Answer", class:"btn btn-default pull-right" %>
 					<% end %>
-				</span>	
-				by <%=User.find_by_id(@question.user_id).username%>
-			</p>
-        </div>
-
-	</div>
-	<!-- display answer submission panel -->
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div>
-				<%= form_for [@question, Answer.new] do |f| %>
-					<%= f.text_area :content, placeholder: "Add an answer", class:"form-control" %><br/>
-					<%= f.submit "Submit Answer", class:"btn btn-default" %>
-				<% end %>
-			</div>
-			<div>
-			<br>
-			<br>			
-			<br>
-				<!-- display all the answers -->
-
-    		<% @question.answers.each do |answer| %>
-    			<div id="answer<%= answer.id %>">
-				  <%= render(partial: 'answers/answer', locals: {answer: answer})%>
 				</div>
-			<% end %>
+				<div>
+				<br>
+				<br>			
+				<br>
+					<!-- display all the answers -->
 
+	    		<% @question.answers.each do |answer| %>
+	    			<div id="answer<%= answer.id %>">
+					  <%= render(partial: 'answers/answer', locals: {answer: answer})%>
+					</div>
+				<% end %>
+
+				</div>
 			</div>
 		</div>
-	</div>
     </div>
 
     <!-- right hand side layout -->
-    <div class="col-md-3"> 
-
-        <!-- container for user info -->
+    <div class="col-md-4"> 
+    	<!-- container for user info -->
         <div class="panel panel-default">
-          <div class="panel-body">
-            <h5><b>@<%= current_user.username %></b></h5>
-          </div>
-          <div class="panel-footer">
-            Notifications <span class="badge badge-pill badge-danger">0</span>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <!-- container for followed tags -->
-        <div class="panel panel-default">
+            <br>
             <div class="panel-body">
-                <p style="font-size: 16px;"><b>Followed tags</b></p>
-                                You're not following any tags yet. 
-
+                <h4>Welcome, <b><%= current_user.username %></b></h4>
+            </div>
+            <div class="panel-footer">
+                My Notifications 
+                <span class="badge badge-pill pull-right" style="background-color:#999595;">0</span>   
             </div>
         </div>
-        <div class="divider"></div>
-        <!-- container for trending tags -->
+        <!-- container for search and trending tags -->
         <div class="panel panel-default">
             <div class="panel-body">
-                <p style="font-size: 16px;"><b>Trending tags</b></p>
-                <div id='tag_cloud'>
-                  <% tag_cloud Question.tag_counts, %w{h5 h4 h3 h2} do |tag, css_class| %>
-                      <%= link_to tag.name, tag_path(tag.name), class: css_class %>
-                  <% end %>
-                </div>         
+                <div>
+                    <%= form_tag(questions_path, method: :get, class:"form-horizontal") do %>
+                        <%= text_field_tag :term, params[:term], style:"width:80%", class:"form-control col-sm-6", placeholder: "Search by keyword, tag..." %>
+                        <%= button_tag(:type => 'submit', style:"float:right;", :class => 'btn btn-default col-sm-2') do %>
+                                <span class="glyphicon glyphicon-search"></span>
+                        <% end %>
+                    <% end %>
+                </div>
+                <br><br>   
             </div>
-		</div>
-        <div class="divider"></div>
+            <div class="panel-footer">
+                <h4><b>Trending tags</b></h4>
+                    <div id='tag_cloud'>
+                      <% tag_cloud Question.tag_counts, %w{h5 h4 h3 h2} do |tag, css_class| %>
+                          <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+                      <% end %>
+                    </div>
+            </div>
+        </div>
 	</div>
 </div>

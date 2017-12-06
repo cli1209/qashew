@@ -1,49 +1,50 @@
 <div>
     <!-- left hand side layout -->
-    <div class="col-md-9 panel panel-default"> 
-        <span id="notice"><%= notice %></span>
-        <br>
+    <div class="col-md-8 panel panel-default"> 
         <!-- display questions -->
         <div class="row">
-            <div class="col-md-9">
-                <h2> <small><a href="/" style="text-decoration:none;color:darkgrey"><span class="glyphicon glyphicon-th-list"></span></a></small> <b>Questions</b></h2>
-                <br>
-                <% if @search_term %>
-                    <div>
-                        Showing search results for "<%= @search_term %>"
-                        <%= link_to 'Clear', tag_path(@tag) %>
-                    </div>
-                <% end %>
-                <% if @tag %>
-                    <div>
-                        Filtering by tag: 
-                        <span class="label label-info">
-                            <%= @tag %>
-                            <small><a href="/" class="glyphicon glyphicon-remove-sign"></a></small>
-                        </span>
-                    </div>
-                <% end %>
+            <div class="col-md-6">
+                <h3> <small><a href="/" style="text-decoration:none;color:darkgrey"><span class="glyphicon glyphicon-th-list"></span></a></small> <b>Questions</b></h3>
             </div>
             <br>
-            <div class="btn-group dropdown">
-                      <button class="btn btn-default" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort by
-                        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-                        
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><%= link_to "Most Upvoted", :term => @search_term, :sort => "cached_weighted_score", class:"dropdown-item" %></li>
-                        <li><%= link_to "Newest", :term => @search_term, :sort => "created_at", class:"dropdown-item" %></li>
-                      </ul>
-            </div>
-
-            <div class="btn-group">
-                  <%= link_to 'New Question', new_question_path, class: "btn btn-info"%>
+            <div class="col-md-6">
+                <div class="btn-group pull-right">
+                    <div class="btn-group dropdown">
+                              <button class="btn btn-default" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Sort by
+                                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                                
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li><%= link_to "Most Upvoted", :term => @search_term, :sort => "cached_weighted_score", class:"dropdown-item" %></li>
+                                <li><%= link_to "Newest", :term => @search_term, :sort => "created_at", class:"dropdown-item" %></li>
+                              </ul>
+                    </div>
+                    <div class="btn-group">
+                          <%= link_to 'New Question', new_question_path, class: "btn btn-info"%>
+                    </div>
+                </div>
             </div>
         </div>
-                    <br>
-
-
+        <br>
+        <div class="col">
+            <% if @search_term %>
+                <div>
+                    Showing search results for "<%= @search_term %>"
+                    <%= link_to 'Clear', tag_path(@tag) %>
+                </div>
+            <% end %>
+            <% if @tag %>
+                <div>
+                    Filtering by tag: 
+                    <span class="label label-info">
+                        <%= @tag %>
+                        <small><a href="/" class="glyphicon glyphicon-remove-sign"></a></small>
+                    </span>
+                </div>
+            <% end %>
+        </div>
+        <br>
         <table class="table table-striped table-hover">
           <tbody>
             <% if @questions.each do |question| %>
@@ -61,36 +62,39 @@
     </div>
 
     <!-- right hand side layout -->
-    <div class="col-md-3"> 
-
+    <div class="col-md-4"> 
         <!-- container for user info -->
         <div class="panel panel-default">
-          <div class="panel-body">
-            <h5><b>@<%= current_user.username %></b></h5>
-          </div>
-          <div class="panel-footer">Notifications</div>
-        </div>
-        <div class="divider"></div>
-        <!-- container for followed tags -->
-        <div class="panel panel-default">
+            <br>
             <div class="panel-body">
-                <p style="font-size: 16px;"><b>Followed tags</b></p>
-                                You're not following any tags yet. 
-
+                <h4>Welcome, <b><%= current_user.username %></b></h4>
+            </div>
+            <div class="panel-footer">
+                My Notifications 
+                <span class="badge badge-pill pull-right" style="background-color:#999595;">0</span>   
             </div>
         </div>
-        <div class="divider"></div>
-        <!-- container for trending tags -->
+        <!-- container for search and trending tags -->
         <div class="panel panel-default">
             <div class="panel-body">
-                <p style="font-size: 16px;"><b>Trending tags</b></p>
-                <div id='tag_cloud'>
-                  <% tag_cloud Question.tag_counts, %w{h5 h4 h3 h2} do |tag, css_class| %>
-                      <%= link_to tag.name, tag_path(tag.name), class: css_class %>
-                  <% end %>
-                </div>         
+                <div>
+                    <%= form_tag(questions_path, method: :get, class:"form-horizontal") do %>
+                        <%= text_field_tag :term, params[:term], style:"width:80%", class:"form-control col-sm-6", placeholder: "Search by keyword, tag..." %>
+                        <%= button_tag(:type => 'submit', style:"float:right;", :class => 'btn btn-default col-sm-2') do %>
+                                <span class="glyphicon glyphicon-search"></span>
+                        <% end %>
+                    <% end %>
+                </div>
+                <br><br>   
             </div>
- </div>
-        <div class="divider"></div>
+            <div class="panel-footer">
+                <h4><b>Trending tags</b></h4>
+                    <div id='tag_cloud'>
+                      <% tag_cloud Question.tag_counts, %w{h5 h4 h3 h2} do |tag, css_class| %>
+                          <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+                      <% end %>
+                    </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,2 +1,9 @@
-<h4>Welcome to Q+Ashew!</h4>
-<p>This is the home page. Find me in app/views/pages/home.html.erb</p>
+  <div class="container text-center">
+  	<br>  	<br>
+
+    <h1><b>Q+A</b>shew:</h1>
+    <p class="lead">a campus forum for academic and career advising</p>
+    <div class="btn-group" role="group">
+    	<%= button_to('Sign up with your college email address', new_user_registration_path, method: :get, style:"text-transform:none; font-size:16px", class:"btn btn-success btn-lg") %>
+    </div>
+  </div>

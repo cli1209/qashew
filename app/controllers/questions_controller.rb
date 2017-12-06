@@ -10,6 +10,7 @@ class QuestionsController < ApplicationController
     @questions = Question.where(nil) # creates an anonymous scope
     @questions = @questions.term(params[:term]) if params[:term].present?
     @search_term = params[:term] if params[:term].present?
+    @questions = Question.find(current_user.starred) if params[:starred].present?
     @questions = @questions.sort_by { |m| m[sort_param] }.reverse if sort_param.present?
   end
 
@@ -102,6 +103,25 @@ class QuestionsController < ApplicationController
       format.js
     end
   end
+
+  def star
+    @question = Question.find(params[:question_id])
+    current_user.starred << params[:question_id]
+    current_user.save(validate: false)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def unstar
+    @question = Question.find(params[:question_id])
+    current_user.starred.delete_if {|x| x==@question.id}
+    current_user.save(validate: false)
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   def tag_cloud
     @tags = Question.tag_counts_on(:tags)
