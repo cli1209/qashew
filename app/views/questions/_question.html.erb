@@ -62,10 +62,6 @@
         <span class="glyphicon glyphicon-ok" style="color:#29b265; font-size:17px" aria-hidden="true"></span> 
     <% end %>
     <br>
-
-    <!-- display question content (first 75 chars) -->
-    <span style="font-size:16px"><%= question.content.truncate(115) %></span>
-  
     <!-- display how long ago the question was created-->
     <div class="grey-text" style="font-size: 12px;">
         <% if question.created_at > Time.now.beginning_of_day %>
@@ -84,6 +80,10 @@
             <% end %>
         <% end %>
     </div>        
+
+    <!-- display question content (first 75 chars) -->
+    <span style="font-size:16px"><%= question.content.truncate(115) %></span>
+  
     <p>            
       <% question.tag_list.each do |tag| %>
             <a href="/tag/<%=tag%>" class="label label-pill label-info" style="text-decoration:none;"><%= tag %></a>
