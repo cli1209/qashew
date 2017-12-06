@@ -78,27 +78,30 @@
 		</div>
 	</div>
 	<div class="panel-footer">
-		<% if user_signed_in? and current_user.owns_question?(@question) %>
-			<% if !@question.resolved %>
-				<%= link_to 'Mark as Resolved', question_resolved_path(@question), method: :put, remote: true %> |
-			<% end %>
-			<%= link_to 'Edit', edit_question_path(@question) %> |
-			<%= link_to 'Delete', question, method: :delete, data: { confirm: 'Are you sure?' } %>
-		<% end %>
-		<span class="pull-right text-muted">
-			Updated 
-			<span class="grey-text">
-				<% if @question.created_at > Time.now.beginning_of_day %>
-				    <%="#{time_ago_in_words(@question.created_at)} ago"%> 
-				<% else %>
-				    <%= @question.created_at.strftime("%b %d, %Y") %> 
+		<div>
+			<% if user_signed_in? and current_user.owns_question?(@question) %>
+				<% if !@question.resolved %>
+					<%= link_to 'Mark as Resolved', question_resolved_path(@question), method: :put, remote: true %> |
 				<% end %>
-			</span>	
-			by 
-			<% if @question.anon %> 
-				Anonymous
-			<% else %>
-				<%=User.find_by_id(@question.user_id).username%>
+				<%= link_to 'Edit', edit_question_path(@question) %> |
+				<%= link_to 'Delete', question, method: :delete, data: { confirm: 'Are you sure?' } %>
 			<% end %>
-		</span>
+			<p class="pull-right text-muted">
+				Updated 
+				<span class="grey-text">
+					<% if @question.created_at > Time.now.beginning_of_day %>
+					    <%="#{time_ago_in_words(@question.created_at)} ago"%> 
+					<% else %>
+					    <%= @question.created_at.strftime("%b %d, %Y") %> 
+					<% end %>
+				</span>	
+				by 
+				<% if @question.anon %> 
+					Anonymous
+				<% else %>
+					<%=User.find_by_id(@question.user_id).username%>
+				<% end %>
+			</p>
+			<br>
+		</div>
     </div>
