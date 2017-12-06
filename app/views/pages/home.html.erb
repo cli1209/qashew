@@ -1,9 +1,46 @@
-  <div class="container text-center">
-  	<br>  	<br>
-
-    <h1><b>Q+A</b>shew:</h1>
-    <p class="lead">a campus forum for academic and career advising</p>
-    <div class="btn-group" role="group">
-    	<%= button_to('Sign up with your college email address', new_user_registration_path, method: :get, style:"text-transform:none; font-size:16px", class:"btn btn-success btn-lg") %>
+<body>
+  	<%= render '/layouts/nav' %>
+  	
+  	<div class="container">
+	<div class="col-md-7" style="margin-top:100px"> 
+	    <h1 style="font-size: 70px"><b>Q<span style="font-size:45px;"><sup>+</sup></span>A</b>shew:</h1>
+	    <p class="lead text-muted" style="font-size:35px">
+		    a campus forum for academic and career advising <br>
+		    built <i>by</i> students, <i>for</i> students
+		</p>
     </div>
-  </div>
+    <div class="col-md-5" style="margin-top:100px"> 
+    	<div class="panel panel-default">
+		    <div class="panel-heading">
+		        <h3 class="panel-title text-center">Sign up</h3>
+		    </div>
+		    <div class="panel-body">
+		        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+		        <%= devise_error_messages! %>
+
+		    <div class="form-group">
+		        <%= f.label :email, "University email address" %><br />
+		        <%= f.email_field :email, class:"form-control", placeholder:"netid@princeton.edu" %>
+		    </div>
+
+		    <div class="form-group">
+		        <%= f.label :password %>
+		        <% if @minimum_password_length %>
+		        <em>(<%= @minimum_password_length %> characters minimum)</em>
+		        <% end %><br />
+		        <%= f.password_field :password, autocomplete: "off", class:"form-control", placeholder:"Create a password" %>
+		    </div>
+
+		    <div class="form-group">
+		        <%= f.label :password_confirmation %><br />
+		        <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control", placeholder:"Re-enter your password"%>
+		    </div>
+		    <div class="actions">
+		        <%= f.submit "Sign up for Q+Ashew", class:"btn btn-success btn-block" %>
+		    </div>
+
+		    <% end %>
+		    </div>
+	    </div>
+	</div>
+</body>
