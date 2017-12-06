@@ -9,6 +9,7 @@
 			<div class="panel-body">
 				<div>
 					<%= form_for [@question, Answer.new] do |f| %>
+                        <%= f.text_field :content, placeholder: "Add an answer", class:"form-control" %><br/>
 						<%= f.text_area :content, placeholder: "Add an answer", class:"form-control" %><br/>
 						<%= f.submit "Submit Answer", class:"btn btn-default pull-right" %>
 					<% end %>
