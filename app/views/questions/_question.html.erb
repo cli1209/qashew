@@ -63,9 +63,19 @@
     <!-- display how long ago the question was created-->
     <div class="grey-text" style="font-size: 12px;">
         <% if question.created_at > Time.now.beginning_of_day %>
-            asked <%="#{time_ago_in_words(question.created_at)} ago"%> 
+            asked <%="#{time_ago_in_words(question.created_at)} ago"%> by 
+            <% if question.anon %> 
+                Anonymous
+            <% else %>
+                <%= User.find(question.user_id).username %>
+            <% end %>
         <% else %>
-            asked on <%= question.created_at.strftime("%b %d, %Y") %> by <%= User.find(question.user_id).username %>
+            asked on <%= question.created_at.strftime("%b %d, %Y") %> by 
+            <% if question.anon %> 
+                Anonymous
+            <% else %>
+                <%= User.find(question.user_id).username %>
+            <% end %>
         <% end %>
     </div>        
     <p>            

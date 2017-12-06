@@ -17,7 +17,11 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
-    @question = Question.find(params[:id])
+    if Question.exists?(params[:id])
+      @question = Question.find(params[:id])
+    else
+      redirect_to questions_url
+    end
     # to avoid NIL error
     @answer = Answer.new
 
@@ -36,7 +40,7 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = current_user.questions.new(question_params)
-
+    @question.anon = params[:anon]
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
@@ -143,7 +147,7 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:headline, :content, :user_id, :tag_list)
+      params.require(:question).permit(:headline, :content, :user_id, :tag_list, :anon)
     end
 
     # sanitize the ordering param

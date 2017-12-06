@@ -11,18 +11,23 @@
     </div>
   <% end %>
   <div class="form-group">
-    <%= form.label :headline %>
+    <%= form.label :headline, "Question (one line summary)" %>
     <%= form.text_field :headline, id: :question_headline, class:"form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :content %>
+    <%= form.label :content, "Details" %>
     <%= form.text_area :content, id: :question_content, class:"form-control" %>
   </div>
 
   <div class="form-group">
     <%= form.label :tag_list, "Your tags (separated by commas)" %><br/>
     <%= form.text_field :tag_list, class:"form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= check_box_tag(:anon) %>
+    <%= label_tag(:anon, "Submit anonymously (leave unchecked to show your netid)") %>
   </div>
 
   <div class="actions">

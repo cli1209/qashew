@@ -79,6 +79,11 @@
 				    <%= @question.created_at.strftime("%b %d, %Y") %> 
 				<% end %>
 			</span>	
-			by <%=User.find_by_id(@question.user_id).username%>
+			by 
+			<% if @question.anon %> 
+				Anonymous
+			<% else %>
+				<%=User.find_by_id(@question.user_id).username%>
+			<% end %>
 		</p>
     </div>
