@@ -1,10 +1,13 @@
 <body>  
-        <%= render '/layouts/nav' %>
+    <%= render '/layouts/nav' %>
 
     <div class="container"> 
     	<!-- left hand side layout -->
     	<div class="col-md-8 panel panel-default"> 
-    	    <h4><b>@<%=current_user.username%></b></h4>
+    	    <h4><b>Notifications</b></h4>
+            <ul style="list-style: none;">
+                <%= render current_user.notifications %>
+            </ul>
         </div>
 
         <!-- right hand side layout -->

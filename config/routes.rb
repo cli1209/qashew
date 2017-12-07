@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
   
+  get 'notifications/link_through'
+
   	get '/home' => 'pages#home'
   	get '/index' => 'questions#index'
   	get '/explore' => 'pages#explore'
 	get '/user/:id' => 'pages#profile'
 	get '/tag/:tag_id' => 'pages#tag', as: :tag
+	get 'notifications/:id/link_through', to: 'notifications#link_through',
+                                        as: :link_through
+    get 'notifications', to: 'notifications#index'
+
 
   	devise_for :users
 
