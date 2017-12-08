@@ -1,8 +1,8 @@
 class QuestionsController < ApplicationController
   before_action :set_owned_question, only: [:edit, :update, :destroy]
 
-  # helper param for the sort_by() call in index method
-  helper_method :sort_param
+  # helper param for the sort_by() call in index method and create_notification in question_resolve
+  helper_method :sort_param, :create_notification
 
   # GET /questions
   # GET /questions.json
@@ -130,6 +130,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:question_id])
     @question.resolved = true
     @question.save
+    create_notification @question
     respond_to do |format|
       format.js
     end
@@ -161,5 +162,17 @@ class QuestionsController < ApplicationController
     # sanitize the ordering param
     def sort_param
       ["created_at", "cached_weighted_score"].include?(params[:sort]) ? params[:sort] : "cached_weighted_score"
+    end
+
+    # create notification for everyone who has the question starred
+    def create_notification(question)
+      @selected = User.where("?=ANY(starred)", question.id)
+      @selected.each do |selected|
+        Notification.create(user_id: selected.id,
+                          notified_by_id: current_user.id,
+                          question_id: question.id,
+                          identifier: question.id,
+                          notice_type: 'marked as resolved')
+      end
     end
 end

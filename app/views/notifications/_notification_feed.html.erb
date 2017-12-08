@@ -1,4 +1,23 @@
 <li style="margin-top: 1em; background-color: white; padding: 1em;">
-  <%= link_to "#{notification.notified_by.username} #{notification.notice_type}ed  your question", link_through_path(notification) %>
-	<%="#{time_ago_in_words(notification.created_at)} ago"%> 
+	  	<% if notification.notice_type == 'answered' %>
+		  	<% if Answer.find_by_id(notification.identifier).anon %>
+			  	<%= link_to "Anonymous #{notification.notice_type}", link_through_path(notification)%> <%="#{time_ago_in_words(notification.created_at)} ago"%> 
+		  	<% else %>
+		  		<%= link_to "#{notification.notified_by.username} #{notification.notice_type}", link_through_path(notification)%> <%="#{time_ago_in_words(notification.created_at)} ago"%>
+		  	<% end %>
+		  	<br> 
+		  	<span class="text-muted" style="text-align:left;"><b><%=Question.find_by_id(notification.question_id).headline.truncate(60)%></b>
+		  	<br>
+		  	<span class="text-muted" style="text-align:left;"><i><%=Answer.find_by_id(notification.identifier).content.truncate(70)%></i>
+	  	<% else %>
+		  	<% if Question.find_by_id(notification.question_id).anon %>
+			  	<%= link_to "Anonymous #{notification.notice_type}", link_through_path(notification)%> <%="#{time_ago_in_words(notification.created_at)} ago"%> 
+		  	<% else %>
+		  		<%= link_to "#{notification.notified_by.username} #{notification.notice_type}", link_through_path(notification)%> <%="#{time_ago_in_words(notification.created_at)} ago"%>
+		  	<% end %>
+		  	<br> 
+		  	<span class="text-muted" style="text-align:left;"><b><%=Question.find_by_id(notification.question_id).headline.truncate(60)%></b>
+		  	<br>
+		  	<span class="text-muted" style="text-align:left;"><i><%=Question.find_by_id(notification.question_id).content.truncate(70)%></i>
+	  	<% end %>
  </li>
