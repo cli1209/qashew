@@ -4,8 +4,8 @@
 			<span class="glyphicon glyphicon-flag"></span>
 		</span>
 	</a>
-	<ul class="dropdown-menu" style="width:300px">
-	    <%= render current_user.notifications.where(read: false).order('created_at DESC').last(5)%>
+	<ul class="dropdown-menu" style="width:325px">
+	    <%= render current_user.notifications.where(read: false).order('created_at DESC').first(5)%>
 	      <li class="text-center"><%= link_to "View All", "/user/#{current_user.username}" %></li>
 	</ul>
 <% else %>

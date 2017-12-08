@@ -6,7 +6,10 @@ class NotificationsController < ApplicationController
 
 	def link_through
 		@notification = Notification.find(params[:id])
-		@notification.update read: true
+		@all = Notification.where('question_id'=> @notification.question_id, 'user_id' => current_user)
+		@all.each do |n|
+		    n.update read:true
+	    end
 		redirect_to question_path @notification.question
 	end
 end
