@@ -1,5 +1,7 @@
 class AnswersController < ApplicationController
 
+  	helper_method :create_notification
+
 	def new
 		@answer = Answer.new
 	end
@@ -11,6 +13,7 @@ class AnswersController < ApplicationController
 		@answer.qualifications = params[:answer][:qualifications]
 		@answer.anon = params[:anon]
 		if @answer.save
+			create_notification @question, @answer
 			redirect_to question_path(@question)
 		else
 			redirect_to question_path(@question), notice: "Your comment wasn't posted."
@@ -67,4 +70,13 @@ class AnswersController < ApplicationController
       params.require(:answer).permit(:content, :qualifications, :anon)
     end
 
+    private
+    def create_notification(question, answer)
+		return if question.user.id == current_user.id 
+	    Notification.create(user_id: question.user_id,
+	                        notified_by_id: current_user.id,
+	                        question_id: question.id,
+				            identifier: answer.id,
+	                        notice_type: 'answer')
+	end
 end

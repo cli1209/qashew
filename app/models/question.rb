@@ -3,6 +3,7 @@ class Question < ApplicationRecord
   	acts_as_taggable
 	belongs_to :user
 	has_many :answers
+	has_many :notifications, dependent: :destroy
 	validates :user_id, presence: true
 	validates :headline, presence: true, length: { maximum: 150 }
 	validates :content, presence: true

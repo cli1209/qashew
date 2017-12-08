@@ -2,6 +2,8 @@ class User < ApplicationRecord
     acts_as_voter
     has_many :questions
     has_many :answers
+    has_many :notifications, dependent: :destroy
+
     after_create :set_username
 
 
