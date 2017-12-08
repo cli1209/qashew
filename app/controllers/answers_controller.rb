@@ -77,6 +77,14 @@ class AnswersController < ApplicationController
 	                        notified_by_id: current_user.id,
 	                        question_id: question.id,
 				            identifier: answer.id,
-	                        notice_type: 'answer')
+	                        notice_type: 'asked')
+	    @selected = User.where("?=ANY(starred)", question.id)
+	    @selected.each do |selected|
+	    	Notification.create(user_id: selected.id,
+	                        notified_by_id: current_user.id,
+	                        question_id: question.id,
+				            identifier: answer.id,
+	                        notice_type: 'starred')
+	    end
 	end
 end
