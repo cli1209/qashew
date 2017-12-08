@@ -1,4 +1,4 @@
-<li style="display:inline; background-color:#fceae5;">
+<li style="display:inline;">
   	<div style="margin-left:20px; margin-right:20px; margin-top:1px; margin-bottom:1px">
 	  	<% if Answer.find_by_id(notification.identifier).anon %>
 		  	<%= link_to "Anonymous #{notification.notice_type}ed  your question", link_through_path(notification)%> <%="#{time_ago_in_words(notification.created_at)} ago"%> 
