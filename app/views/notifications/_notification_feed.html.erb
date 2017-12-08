@@ -1,0 +1,4 @@
+<li style="margin-top: 1em; background-color: white; padding: 1em;">
+  <%= link_to "#{notification.notified_by.username} #{notification.notice_type}ed  your question", link_through_path(notification) %>
+	<%="#{time_ago_in_words(notification.created_at)} ago"%> 
+ </li>

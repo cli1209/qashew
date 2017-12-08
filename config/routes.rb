@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 	get '/tag/:tag_id' => 'pages#tag', as: :tag
 	get 'notifications/:id/link_through', to: 'notifications#link_through',
                                         as: :link_through
-    get 'notifications', to: 'notifications#index'
-
+	get 'notifications/:id/view_all', to: 'notifications#view_all',
+								        as: :view_all
 
   	devise_for :users
 
