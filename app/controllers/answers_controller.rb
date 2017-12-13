@@ -80,7 +80,7 @@ class AnswersController < ApplicationController
 	                        notice_type: 'answered')
 	    @selected = User.where("?=ANY(starred)", question.id)
 	    @selected.each do |selected|
-	    	if selected.id != current_user.id 
+	    	if selected.id != current_user.id and selected.id != question.user.id
 		    	Notification.create(user_id: selected.id,
 		                        notified_by_id: current_user.id,
 		                        question_id: question.id,
