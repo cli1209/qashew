@@ -4,7 +4,7 @@ class User < ApplicationRecord
     has_many :answers
     has_many :notifications, dependent: :destroy
 
-    after_create :set_username
+    before_create :set_username
 
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable and :omniauthable
