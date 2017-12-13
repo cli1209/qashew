@@ -23,7 +23,10 @@ gem 'acts-as-taggable-on'
 gem 'bootstrap_tokenfield_rails'
 
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18'
+gem 'pg', '~> 0.18', group: :production
+# for Heroku deployment
+gem 'rails_12factor'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
