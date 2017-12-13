@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: qashew_production
-  username: qashew
-  password: <%= ENV['QASHEW_DATABASE_PASSWORD'] %>
+#  username: qashew 
+#  password: <%= ENV['QASHEW_DATABASE_PASSWORD'] %>
