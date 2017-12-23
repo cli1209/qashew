@@ -1,46 +1,157 @@
 <body>
   	<%= render '/layouts/nav' %>
-  	
-  	<div class="container">
-	<div class="col-md-7" style="margin-top:100px"> 
-	    <h1 style="font-size: 70px"><b>Q<span style="font-size:45px;"><sup>+</sup></span>A</b>shew:</h1>
-	    <p class="lead text-muted" style="font-size:35px">
-		    a campus forum for academic and career advising <br>
-		    built <i>for</i> students, <i>by</i> students
-		</p>
+
+    <section class="jumbotron text-center" style="background-image: url('paper_fibers.png');height:200%;margin-bottom:0;">
+	  	<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3"> 
+				    <h1 style="font-size: 90px;"><b>Q<span style="font-size:45px;"><sup>+</sup></span>A</b>shew
+				    <img src="cashew.png" alt="Cashew" style="width:15%; height:15%;"></h1>
+				    <p class="lead text-muted" style="font-size:30px;">
+					    a campus forum for academic advising <br>
+					    created for students, by students
+					</p>
+					<br>
+					<div class="col-md-8 col-md-offset-2">
+						<div class="panel panel-default">
+						    <div class="panel-heading" style="background-color: #ededed">
+						        <h3 class="panel-title text-center">Sign up</h3>
+						    </div>
+						    <div class="panel-body">
+						        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+							        <%= devise_error_messages! %>
+								    <div class="form-group">
+								        <%= f.label :email, "University email address" %><br />
+								        <%= f.email_field :email, class:"form-control", placeholder:"netid@princeton.edu" %>
+								    </div>
+
+								    <div class="form-group">
+								        <%= f.label :password %>
+								        <% if @minimum_password_length %>
+								        <em>(<%= @minimum_password_length %> characters minimum)</em>
+								        <% end %><br />
+								        <%= f.password_field :password, autocomplete: "off", class:"form-control", placeholder:"Create a password"%>
+								    </div>
+
+								    <div class="form-group">
+								        <%= f.label :password_confirmation %><br />
+								        <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control", placeholder:"Re-enter your password"%>
+								    </div>
+								    <div class="actions">
+								        <%= f.submit "Join the community", class:"btn btn-success btn-block" %>
+								    </div>
+							    <% end %>
+						    </div>
+					    </div>
+					</div>
+			    </div>
+			</div>
+		</div>
+	</section>
+
+	<!-- About Section -->
+    <section id="about" class="content-section text-left" style="background-image: url('stardust.png');height:400px;">
+      <div class="container">
+        <div class="row" style="margin-top:100px">
+          <div class="col-md-8 col-md-offset-1">
+          	<h1 style="color:#e2e2e2">Q<span style="font-size:20px;"><sup>+</sup></span>Ashew <span style="font-size:30px">[<i>cash</i>·ew] is a platform that leverages the collective expertise of the student body to help students make better-informed decisions about course selection, deciding on a major, and more.</span></h1>
+          </div>
+          <div class="col">
+          	<img src="004-column.png" alt="School" style="width:15%; height:15%;">
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="content-section text-center" style="background-image: url('paper_fibers.png');height:800px;">
+      <div class="container">
+        <div class="row" style="margin-top:100px">
+        	<h2>Features</h2> <br><br>
+	        <div class="col-md-5 col-md-offset-1 text-left">
+	          	<h3>Campus-specific</h3>
+	          	<h4>University email recognition means the forum is restricted to students on your campus</h4>
+	          	<h3>Ask and answer candidly</h3>
+	          	<h4>Submit anonymously, or show your netid -- you choose</h4>
+	          	<h3>Up-down voting</h3>
+	          	<h4>Voting allows users to self-monitor content and makes it possible for the hottest questions and answers to rise to the top</h4>
+	          	<h3>Tagging system</h3>
+	          	<h4>Identify which departments and categories your questions belong to, and track the topics that matter to you</h4>
+	          	<h3>Reputability</h3>
+	          	<h4>Taglines let you explain why you're qualified to answer</h4>
+	        </div>
+	        <div class="col">
+	          	<img src="screenshot.png" alt="School" style="width:35%; height:35%;">
+	        </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+<!--Footer-->
+<footer class="page-footer center-on-small-only blue-grey lighten-5 pt-0">
+
+    <div style="background-color: #18a573;">
+        <div class="container">
+            <!--Grid row-->
+            <div class="row py-4 d-flex align-items-center">
+                <!--Grid column-->
+                <div class="text-center" style="height:50px">
+                    <h3 class="text-center text-md-left" style="color:white;margin:20px"><strong><%= link_to('Sign Up Now', new_user_registration_path, style:"text-decoration:none;color:white") %> <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> </strong></h3>
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+        </div>
     </div>
-    <div class="col-md-5" style="margin-top:100px"> 
-    	<div class="panel panel-default">
-		    <div class="panel-heading">
-		        <h3 class="panel-title text-center">Sign up</h3>
-		    </div>
-		    <div class="panel-body">
-		        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-		        <%= devise_error_messages! %>
 
-		    <div class="form-group">
-		        <%= f.label :email, "University email address" %><br />
-		        <%= f.email_field :email, class:"form-control", placeholder:"netid@princeton.edu" %>
-		    </div>
+    <!--Footer Links-->
+    <div class="container text-center">
+        <div class="row" style="padding-top:20px;padding-bottom:20px">
+            <!--First column-->
+            <div class="col-md-3 col-md-offset-1 text-left">
+                <h2 class="title font-bold"><strong>
+                	Q<span style="font-size:25px;"><sup>+</sup></span>A</b>shew
+				    <img src="cashew.png" alt="Cashew" style="width:15%; height:15%;">
+                </strong></h2>
+                <p class="lead text-muted" >
+					    a campus forum for academic advising <br>
+				</p>
+            </div>
+            <!--/.First column-->
 
-		    <div class="form-group">
-		        <%= f.label :password %>
-		        <% if @minimum_password_length %>
-		        <em>(<%= @minimum_password_length %> characters minimum)</em>
-		        <% end %><br />
-		        <%= f.password_field :password, autocomplete: "off", class:"form-control", placeholder:"Create a password" %>
-		    </div>
+            <!--Second column-->
+            <div class="col-md-4">
+                <h4 class="title" style="margin-top:25px"><strong>Developed by</strong></h4>
+                <hr style="width: 60px;">
+                <p>Casey Li (caseyli@)</p>
+                <p>Princeton Computer Science '19</p>
+                <p>Junior Independent Work Fall 2017</p>
+                <p>COS IW05: Invention and Innovation </p>
+            </div>
+            <!--/.Second column-->
 
-		    <div class="form-group">
-		        <%= f.label :password_confirmation %><br />
-		        <%= f.password_field :password_confirmation, autocomplete: "off", class:"form-control", placeholder:"Re-enter your password"%>
-		    </div>
-		    <div class="actions">
-		        <%= f.submit "Send Confirmation Email", class:"btn btn-success btn-block" %>
-		    </div>
+            <!--Third column-->
+            <div class="col-md-4 dark-grey-text">
+            	<h4 class="title" style="margin-top:25px"><strong>Acknowledgements</strong></h4>
+            	<hr style="width: 60px;">
+            	<p>Professor Robert Fish </p>
+            	<p>Preceptor Mikhail Khodak </p>
+            	<p>Many thanks to my COS IW05 classmates!</p>
+            	<p style="color:#bcbcbc">Icons made by Freepik from www.flaticon.com</p>
+            </div>
+            <!--/.Third column-->
+        </div>
+    </div>
+    <!--/.Footer Links-->
+    
+</footer>
+<!--/.Footer-->
+                
 
-		    <% end %>
-		    </div>
-	    </div>
-	</div>
+
+
+
+
 </body>
