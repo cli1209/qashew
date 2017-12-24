@@ -16,7 +16,7 @@ class AnswersController < ApplicationController
 			create_notification @question, @answer
 			redirect_to question_path(@question)
 		else
-			redirect_to question_path(@question), notice: "Your comment wasn't posted."
+			redirect_to question_path(@question), notice: "Your answer wasn't posted."
 		end
 	end
 
