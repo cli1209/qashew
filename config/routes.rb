@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 	end
 	root :to => redirect("/home")
 	# catch any undefined routes and redirect to root page
+	
 	get '*path' => redirect('/')
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
