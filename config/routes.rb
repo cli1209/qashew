@@ -11,9 +11,6 @@ Rails.application.routes.draw do
 	get 'notifications/:id/view_all', to: 'notifications#view_all',
 								        as: :view_all
 
-	# catch any undefined routes and redirect to root page
-	get '*path' => redirect('/')
-
   	devise_for :users
 
 	resources :questions do
@@ -40,6 +37,7 @@ Rails.application.routes.draw do
 	  root :to => "questions#index"
 	end
 	root :to => redirect("/home")
-
+	# catch any undefined routes and redirect to root page
+	get '*path' => redirect('/')
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
