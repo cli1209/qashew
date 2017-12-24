@@ -64,6 +64,7 @@
     <br>
     <!-- display how long ago the question was created-->
     <div class="grey-text" style="font-size: 12px;">
+        <!-- when created and by whom (anon or no) -->
         <% if question.created_at > Time.now.beginning_of_day %>
             asked <%="#{time_ago_in_words(question.created_at)} ago"%> by 
             <% if question.anon %> 
@@ -77,6 +78,16 @@
                 Anonymous
             <% else %>
                 <%= User.find(question.user_id).username %>
+            <% end %>
+        <% end %>
+        <!-- how many answers -->
+        <% if question.answers.size == 0 %>
+            - <span style="color:#b53120">No answers</span>
+        <% else %>
+            <% if question.answers.size == 1 %>
+                - 1 answer
+            <% else %>
+                - <%= question.answers.size %> answers
             <% end %>
         <% end %>
     </div>        
