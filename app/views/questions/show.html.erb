@@ -1,8 +1,16 @@
 <body>
     <%= render '/layouts/nav' %> 
+
     <div class="container"> 
     	<!-- left hand side layout -->
         <div class="col-md-8"> 
+            <% if flash[:notice] or flash[:alert] %>
+                <div class="alert alert-dismissible alert-info" style="padding-top:10px;padding-bottom:10px">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <span class="notice"><%= flash[:notice] %></span>
+                    <span class="alert"><%= flash[:alert] %></span>
+                </div>
+            <% end %>
         	<div id="question_shown" class="panel panel-default">
     			<%= render(partial: 'questions/showquestion', locals: {question: @question})%>
     		</div>

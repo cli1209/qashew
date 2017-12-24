@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 	get 'notifications/:id/view_all', to: 'notifications#view_all',
 								        as: :view_all
 
-  	devise_for :users
+	devise_for :users, controllers: { confirmations: 'confirmations' }
 
 	resources :questions do
 	  	resources :answers
