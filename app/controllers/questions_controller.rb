@@ -12,6 +12,7 @@ class QuestionsController < ApplicationController
     @search_term = params[:term] if params[:term].present?
     @questions = Question.find(current_user.starred) if params[:starred].present?
     @questions = @questions.sort_by { |m| m[sort_param] }.reverse if sort_param.present?
+    @questions = Kaminari.paginate_array(@questions).page(params[:page]).per(20)
   end
 
   # GET /questions/1

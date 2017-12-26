@@ -21,6 +21,7 @@ gem 'popper_js', '~> 1.12.3'
 
 gem 'acts-as-taggable-on'
 gem 'bootstrap_tokenfield_rails'
+gem 'kaminari' # pagination
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18', group: :production
