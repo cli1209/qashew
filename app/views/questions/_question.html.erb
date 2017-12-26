@@ -5,7 +5,7 @@
     <div> <!-- up arrow -->
         <% if current_user.voted_up_on? question %>
             <button class="btn btn-default btn-sm" disabled="true">
-             <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span> 
+             <span class="glyphicon glyphicon-menu-up" aria-hidden="true" style="color:white"></span> 
              </button>  
         <% else %>
             <% if current_user.voted_down_on? question %>
@@ -28,7 +28,7 @@
     <div> <!-- down arrow -->
         <% if current_user.voted_down_on? question %>
             <button class="btn btn-default btn-sm" disabled="true">
-                <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-menu-down" aria-hidden="true" style="color:white"></span>
             </button>   
         <% else %>
             <% if current_user.voted_up_on? question %>
