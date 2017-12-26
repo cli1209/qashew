@@ -14,6 +14,8 @@ class AnswersController < ApplicationController
 		@answer.anon = params[:anon]
 		if @answer.save
 			create_notification @question, @answer
+			AnswersMailer.answer_notification(@answer, @question, current_user).deliver
+			flash[:notice] = "Thanks for answering!"
 			redirect_to question_path(@question)
 		else
 			redirect_to question_path(@question), notice: "Your answer wasn't posted."
