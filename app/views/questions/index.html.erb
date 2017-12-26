@@ -57,10 +57,12 @@
                 			</td>
                 	      </tr>
                 	    <% end.empty? %>
-                          <h5>Sorry, there are no questions here.</h5>
+                          <h5>Be the first to submit a question!</h5>
                         <% end %>
                 	  </tbody>
                 	</table>
+                    <%= paginate @questions %>
+                    <%= page_entries_info @questions %>
                 </div>
             </div>
         </div>

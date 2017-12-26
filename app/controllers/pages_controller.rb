@@ -11,6 +11,7 @@ class PagesController < ApplicationController
   end
 
   def profile
+    @notifications = current_user.notifications.page(params[:page]).per(15)
   	# grab username from user in url as :id
   	if (User.find_by_username(params[:id]))
 	  	@username = params[:id]

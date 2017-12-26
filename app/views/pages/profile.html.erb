@@ -6,8 +6,12 @@
     	<div class="col-md-6 col-md-offset-3"> 
     	    <h4><b>Notifications</b></h4>
             <ul style="list-style:none; margin:0;padding:0;">
-                <%= render :partial => "notifications/notification_feed", :collection => current_user.notifications, :as => :notification  %>
+                <%= render :partial => "notifications/notification_feed", :collection => @notifications, :as => :notification  %>
             </ul>
+
+                    <%= paginate @notifications %>
+                    <%= page_entries_info @notifications %>
         </div>
     </div>
+
 </body>
