@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>The following question was just answered by another student:</p> 
+    <h3><%= @question.headline %></h3>
+    <p><%= link_to "Check it out!", question_url(@question) %></p>
+  </body>
+</html>
